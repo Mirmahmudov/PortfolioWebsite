@@ -699,7 +699,7 @@ h3.my-profession {
   position: absolute;
   top: 0px;
   left: 0px;
-  background-color: rgba(0, 0, 0, 0.753);
+  background-color: rgba(0, 0, 0, 0.616);
   backdrop-filter: blur(5px);
   width: 100%;
   height: 100%;
@@ -708,12 +708,15 @@ h3.my-profession {
   justify-content: center;
   transform: scale(0);
   transition: all 0.3s ease-in-out;
+  opacity: 0;
 
 }
 
 
 .portfolio .portfolio-item-inner .portfolio-img:hover .modal {
   transform: scale(1);
+  opacity: 1;
+
 }
 
 .portfolio .portfolio-item-inner .portfolio-img .modal .links {
@@ -721,12 +724,40 @@ h3.my-profession {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
+}
+
+.portfolio .portfolio-item-inner .portfolio-img .modal .links i {
+  transition: all 0.1s ease-in-out;
 }
 
 .portfolio .portfolio-item-inner .portfolio-img .modal .links a {
   font-size: 30px;
   color: white;
 }
+
+.portfolio .portfolio-item-inner .portfolio-img .modal .links i span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: all 0.5s ease !important;
+  font-weight: 300;
+  top: -60px;
+  font-size: 12px;
+  color: var(--skin-color);
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+
+.portfolio .portfolio-item-inner .portfolio-img .modal i:hover span {
+  opacity: 1;
+  top: -30px;
+  color: var(--skin-color);
+  color: white;
+
+}
+
 
 
 
