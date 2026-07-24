@@ -1,22 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Website</title>
+
+    <!-- title va description i18n.js orqali tanlangan tilga almashadi -->
+    <title>Asadbek Mirmahmudov — Frontend Developer</title>
+    <meta
+      name="description"
+      content="Asadbek Mirmahmudov — Frontend Developer and mentor from Namangan, Uzbekistan. 2+ years with React, JavaScript, TypeScript. Instructor at Codial Academy."
+    />
+    <meta name="author" content="Asadbek Mirmahmudov" />
+    <link rel="canonical" href="https://bekportfoliosite.netlify.app/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bekportfoliosite.netlify.app/" />
+    <meta
+      property="og:title"
+      content="Asadbek Mirmahmudov — Frontend Developer"
+    />
+    <meta
+      property="og:description"
+      content="Frontend Developer and mentor. React, JavaScript, TypeScript. Open to freelance."
+    />
+    <meta
+      property="og:image"
+      content="https://bekportfoliosite.netlify.app/images/hero.webp"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ec1839" />
+    <meta name="color-scheme" content="light dark" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23ec1839'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='64' font-weight='bold' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/skins/color-1.css" />
+    <link rel="stylesheet" href="./css/motion.css" />
+    <link rel="stylesheet" href="./css/style-switcher.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="./css/style-switcher.css" />
+
+    <!-- Rang skinlari. Bittasi yoqilgan, qolgani o'chirilgan (style-switcher.js boshqaradi) -->
     <link
       rel="stylesheet"
       href="./css/skins/color-1.css"
       class="alternate-style"
       title="color-1"
-      disabled
     />
     <link
       rel="stylesheet"
@@ -46,70 +85,201 @@
       title="color-5"
       disabled
     />
+
+    <!-- Saqlangan mavzu/rangni sahifa chizilishidan OLDIN qo'llaydi (miltillashning oldini oladi) -->
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          if (!theme) {
+            theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          }
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+
+          var color = localStorage.getItem("skin-color") || "color-1";
+          var links = document.querySelectorAll("link.alternate-style");
+          for (var i = 0; i < links.length; i++) {
+            if (links[i].getAttribute("title") === color) {
+              links[i].removeAttribute("disabled");
+            } else {
+              links[i].setAttribute("disabled", "true");
+            }
+          }
+        } catch (e) {
+          /* localStorage bloklangan bo'lsa, default ko'rinish qoladi */
+        }
+      })();
+    </script>
   </head>
 
-  <body>
-    <div class="main-container">
-      <div class="aside">
-        <div class="logo">
-          <a href="#"> <span>A</span>sadbek </a>
-        </div>
-        <div class="nav-toggler">
-          <span></span>
-        </div>
-        <ul class="nav">
-          <li>
-            <a href="#home" class="active"><i class="fa fa-home"> </i> Home</a>
-          </li>
-          <li>
-            <a href="#about"><i class="fa fa-user"></i> About</a>
-          </li>
-          <li>
-            <a href="#services"><i class="fa fa-list"></i> Services</a>
-          </li>
-          <li>
-            <a href="#portfolio"><i class="fa fa-briefcase"></i> Portfolio</a>
-          </li>
-          <li>
-            <a href="#contact"><i class="fa fa-comments"></i>Contact</a>
-          </li>
-        </ul>
+  <body class="is-loading">
+    <div class="page-loader" aria-hidden="true">
+      <div class="page-loader-inner">
+        <span class="loader-logo">A</span>
+        <span class="loader-bar"></span>
       </div>
+    </div>
+
+    <a href="#home" class="skip-link" data-i18n="skip.link">Skip to content</a>
+
+    <!-- Mobil menyu ochilganda orqa fonni qoraytiradi; bosilsa menyu yopiladi -->
+    <div class="nav-backdrop" hidden></div>
+
+    <div class="main-container">
+      <aside class="aside">
+        <div class="logo">
+          <a href="#home"><span>A</span>sadbek</a>
+        </div>
+
+        <button
+          class="nav-toggler"
+          type="button"
+          data-i18n-aria-label="switcher.toggleMenu"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          <span></span>
+        </button>
+
+        <nav>
+          <ul class="nav" id="primary-nav">
+            <li>
+              <a href="#home" class="active">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span data-i18n="nav.home">Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#about">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span data-i18n="nav.about">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="#services">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                <span data-i18n="nav.services">Services</span>
+              </a>
+            </li>
+            <li>
+              <a href="#portfolio">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <span data-i18n="nav.portfolio">Portfolio</span>
+              </a>
+            </li>
+            <li>
+              <a href="#contact">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                <span data-i18n="nav.contact">Contact</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Til almashtirgich -->
+        <div class="lang-switcher" role="group" aria-label="Language">
+          <button type="button" data-lang="uz">UZ</button>
+          <button type="button" data-lang="ru">RU</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+
+        <!-- Ijtimoiy tarmoqlar -->
+        <div class="aside-social">
+          <a
+            href="https://github.com/Mirmahmudov"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://t.me/MirmahmudovAsadbek"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Telegram"
+          >
+            <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/asadbek-mirmahmudov-744b94282/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </div>
+      </aside>
+
       <div class="main-content">
         <!-- Home Section -->
-        <section class="home active section" id="home">
+        <section class="home active section" id="home" tabindex="-1">
+          <div class="motion-bg" aria-hidden="true">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+            <span class="grid-fade"></span>
+          </div>
           <div class="container">
             <div class="row">
-              <div class="home-info padd-15">
+              <div class="home-info padd-15 reveal" data-reveal>
                 <h3 class="hello">
-                  Hello,my name is <span class="name">Asadbek Mirmahmudov</span>
+                  <span data-i18n="home.hello">Hello, my name is</span>
+                  <span class="name" data-i18n="home.name"
+                    >Asadbek Mirmahmudov</span
+                  >
                 </h3>
                 <h3 class="my-profession">
-                  i'm a <span class="typing"> web designer</span>
+                  <span data-i18n="home.imA">I'm a</span>
+                  <span class="typing">Frontend Developer</span>
                 </h3>
-                <p>
-                  I'm a Frontend Developer with 1.5+ years of experience. I
-                  specialize in creating modern, responsive websites using
-                  React, JavaScript, HTML, and CSS. Passionate about building
-                  user-friendly interfaces and enhancing user experience.
+                <p data-i18n="home.bio">
+                  Frontend Developer and mentor with 2+ years of experience
+                  building web apps with React and modern JavaScript. Instructor
+                  at Codial Academy.
                 </p>
-                <a target="_blank" href="./images/Resume.pdf" class="btn">
-                  Download CV</a
-                >
+                <div class="home-actions">
+                  <a
+                    href="./images/Resume-UZ.pdf"
+                    target="_blank"
+                    rel="noopener"
+                    download="Asadbek-Mirmahmudov-CV-UZ.pdf"
+                    class="btn js-cv-download magnetic"
+                    data-i18n="home.downloadCV"
+                    >Download CV</a
+                  >
+                  <a href="#contact" class="btn btn-ghost hire-me magnetic" data-i18n="info.hireMe"
+                    >Hire Me</a
+                  >
+                </div>
               </div>
-              <div class="home-img padd-15">
-                <img src="./images/hero.png" alt="" />
+              <div class="home-img padd-15 reveal" data-reveal data-reveal-delay="120">
+                <div class="home-img-frame">
+                  <img
+                    src="./images/hero.webp"
+                    width="337"
+                    height="404"
+                    data-i18n-alt="home.heroAlt"
+                    alt="Portrait of Asadbek Mirmahmudov"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         <!-- About Section -->
-        <section class="about section" id="about">
+        <section class="about section" id="about" tabindex="-1">
           <div class="container">
             <div class="row">
               <div class="section-title padd-15">
-                <h2>About Me</h2>
+                <h2 data-i18n="about.title">About Me</h2>
               </div>
             </div>
             <div class="row">
@@ -117,220 +287,242 @@
                 <div class="row">
                   <div class="about-text padd-15">
                     <h3>
-                      I'm Asadbek Mirmahmudov and
-                      <span>FrontEnd Deweloper</span>
+                      <span data-i18n="about.headingPrefix"
+                        >I'm Asadbek Mirmahmudov and</span
+                      >
+                      <span class="role" data-i18n="about.headingRole"
+                        >Frontend Developer</span
+                      >
                     </h3>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Id laborum eaque mollitia, voluptatibus vel nisi sapiente,
-                      quo maiores consequatur ipsam minima est repellendus,
-                      facere aliquid at laudantium? Necessitatibus, eaque
-                      consectetur delectus inventore et voluptatum voluptates
-                      dolores nemo rem non dolorem, saepe fuga debitis! Atque,
-                      accusantium nemo ea exercitationem voluptates eveniet
-                      quasi et odio fuga accusamus!
-                    </p>
+                    <p data-i18n="about.p1"></p>
+                    <p data-i18n="about.p2"></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="personal-info padd-15">
                     <div class="row">
-                      <div class="info-item pedd-15">
-                        <p>Birthday : <span>23 sep 2003</span></p>
-                      </div>
-                      <div class="info-item pedd-15">
-                        <p>Age : <span>21</span></p>
-                      </div>
-                      <div class="info-item pedd-15">
+                      <div class="info-item padd-15">
                         <p>
-                          website :
-                          <span>https://bekportfoliosite.netlify.app/</span>
+                          <span class="info-label" data-i18n="info.birthday"
+                            >Birthday</span
+                          >
+                          : <span data-i18n="info.birthdayValue">23 Sep 2003</span>
                         </p>
                       </div>
-                      <div class="info-item pedd-15">
+                      <div class="info-item padd-15">
+                        <!-- Yosh JS orqali tug'ilgan sanadan hisoblanadi — hech qachon eskirmaydi -->
                         <p>
-                          Email :
-                          <a href="https://www.youtube.com/"
-                            >asadbek@gmail.com</a
+                          <span class="info-label" data-i18n="info.age">Age</span>
+                          :
+                          <span class="js-age" data-birthday="2003-09-23">22</span>
+                        </p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.website"
+                            >Website</span
+                          >
+                          :
+                          <a
+                            href="https://bekportfoliosite.netlify.app/"
+                            target="_blank"
+                            rel="noopener"
+                            >bekportfoliosite.netlify.app</a
                           >
                         </p>
                       </div>
-                      <div class="info-item pedd-15">
-                        <p>Degree : <span>Master</span></p>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.email"
+                            >Email</span
+                          >
+                          :
+                          <a href="mailto:asadbekmirmahmudov3@gmail.com"
+                            >asadbekmirmahmudov3@gmail.com</a
+                          >
+                        </p>
                       </div>
-                      <div class="info-item pedd-15">
-                        <p>Phone : <span>+998 91 344 44 68</span></p>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.degree"
+                            >Degree</span
+                          >
+                          :
+                          <span data-i18n="info.degreeValue">Bachelor's</span>
+                        </p>
                       </div>
-                      <div class="info-item pedd-15">
-                        <p>city : <span>Namangan Chust</span></p>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.phone"
+                            >Phone</span
+                          >
+                          :
+                          <a href="tel:+998913444468">+998 91 344 44 68</a>
+                        </p>
                       </div>
-                      <div class="info-item pedd-15">
-                        <p>Freelnce : <span>Available</span></p>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.city"
+                            >City</span
+                          >
+                          : <span data-i18n="info.cityValue">Chust, Namangan</span>
+                        </p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>
+                          <span class="info-label" data-i18n="info.freelance"
+                            >Freelance</span
+                          >
+                          :
+                          <span data-i18n="info.freelanceValue">Available</span>
+                        </p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="buttons padd-15">
                         <a
                           href="#contact"
-                          data-section-index="1"
                           class="btn hire-me"
+                          data-i18n="info.hireMe"
+                          >Hire Me</a
                         >
-                          Hire Me
-                        </a>
                       </div>
                     </div>
                   </div>
+
                   <div class="skills padd-15">
                     <div class="row">
                       <div class="skill-item padd-15">
-                        <h5>css</h5>
+                        <h5>HTML / CSS / SCSS</h5>
                         <div class="progress">
-                          <div class="progress-in" style="width: 76%"></div>
-                          <div class="skill-percent">76%</div>
+                          <div class="progress-in" data-width="95%"></div>
+                          <div class="skill-percent">95%</div>
                         </div>
                       </div>
                       <div class="skill-item padd-15">
-                        <h5>JS</h5>
+                        <h5>JavaScript</h5>
                         <div class="progress">
-                          <div class="progress-in" style="width: 86%"></div>
-                          <div class="skill-percent">86%</div>
+                          <div class="progress-in" data-width="88%"></div>
+                          <div class="skill-percent">88%</div>
                         </div>
                       </div>
                       <div class="skill-item padd-15">
-                        <h5>REact</h5>
+                        <h5>React</h5>
                         <div class="progress">
-                          <div class="progress-in" style="width: 70%"></div>
+                          <div class="progress-in" data-width="85%"></div>
+                          <div class="skill-percent">85%</div>
+                        </div>
+                      </div>
+                      <div class="skill-item padd-15">
+                        <h5>TypeScript</h5>
+                        <div class="progress">
+                          <div class="progress-in" data-width="70%"></div>
                           <div class="skill-percent">70%</div>
                         </div>
                       </div>
                       <div class="skill-item padd-15">
-                        <h5>html</h5>
+                        <h5>Tailwind / Bootstrap</h5>
                         <div class="progress">
-                          <div class="progress-in" style="width: 96%"></div>
-                          <div class="skill-percent">96%</div>
-                        </div>
-                      </div>
-                      <div class="skill-item padd-15">
-                        <h5>Bootstrapt</h5>
-                        <div class="progress">
-                          <div class="progress-in" style="width: 86%"></div>
+                          <div class="progress-in" data-width="86%"></div>
                           <div class="skill-percent">86%</div>
                         </div>
                       </div>
                       <div class="skill-item padd-15">
-                        <h5>tailwind css</h5>
+                        <h5>Git / Vite</h5>
                         <div class="progress">
-                          <div class="progress-in" style="width: 76%"></div>
-                          <div class="skill-percent">76%</div>
+                          <div class="progress-in" data-width="82%"></div>
+                          <div class="skill-percent">82%</div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div class="row">
                   <div class="education padd-15">
-                    <h3 class="title">Education</h3>
+                    <h3 class="title" data-i18n="edu.title">Education</h3>
                     <div class="row">
                       <div class="timeline-box padd-15">
                         <div class="timeline shadow-dark">
                           <div class="timeline-item">
                             <div class="circle-dot"></div>
                             <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="edu1.date">2021 — 2025</span>
                             </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
+                            <h4 class="timeline-title" data-i18n="edu1.title">
+                              Fergana State Technical University — Bachelor's
                             </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
+                            <p class="timeline-text" data-i18n="edu1.text"></p>
                           </div>
                           <div class="timeline-item">
                             <div class="circle-dot"></div>
                             <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="edu2.date"
+                                >Mar 2023 — Dec 2023</span
+                              >
                             </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
+                            <h4 class="timeline-title" data-i18n="edu2.title">
+                              Codial Academy — Frontend Course
                             </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
-                          </div>
-                          <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
-                            </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
-                            </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
+                            <p class="timeline-text" data-i18n="edu2.text"></p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <div class="experience padd-15">
-                    <h3 class="title">Experience</h3>
+                    <h3 class="title" data-i18n="exp.title">Experience</h3>
                     <div class="row">
                       <div class="timeline-box padd-15">
                         <div class="timeline shadow-dark">
                           <div class="timeline-item">
                             <div class="circle-dot"></div>
                             <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="exp1.date">2026 — present</span>
                             </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
+                            <h4 class="timeline-title" data-i18n="exp1.title">
+                              Frontend Developer &amp; PM — AsosIT
                             </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
+                            <p class="timeline-text" data-i18n="exp1.text"></p>
                           </div>
                           <div class="timeline-item">
                             <div class="circle-dot"></div>
                             <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="exp2.date">2026 — present</span>
                             </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
+                            <h4 class="timeline-title" data-i18n="exp2.title">
+                              Frontend Developer — Raqamli Nazorat
                             </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
+                            <p class="timeline-text" data-i18n="exp2.text"></p>
                           </div>
                           <div class="timeline-item">
                             <div class="circle-dot"></div>
                             <h3 class="timeline-date">
-                              <i class="fa fa-calendar"></i> 2013-2015
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="exp3.date"
+                                >Jan 2024 — present</span
+                              >
                             </h3>
-                            <h4 class="timeline-title">
-                              Master in Computer Science
+                            <h4 class="timeline-title" data-i18n="exp3.title">
+                              Frontend Instructor — Codial Academy
                             </h4>
-                            <p class="timeline-text">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Beatae, veniam hic, necessitatibus illum
-                              accusantium vel incidunt natus neque voluptates
-                              debitis fuga enim, ducimus cumque itaque.
-                            </p>
+                            <p class="timeline-text" data-i18n="exp3.text"></p>
+                          </div>
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h3 class="timeline-date">
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                              <span data-i18n="exp4.date">2025 — 2026</span>
+                            </h3>
+                            <h4 class="timeline-title" data-i18n="exp4.title">
+                              Codial Gamification Systems
+                            </h4>
+                            <p class="timeline-text" data-i18n="exp4.text"></p>
                           </div>
                         </div>
                       </div>
@@ -343,84 +535,66 @@
         </section>
 
         <!-- Services section -->
-        <section class="service section" id="services">
+        <section class="service section" id="services" tabindex="-1">
           <div class="container">
             <div class="row">
               <div class="section-title padd-15">
-                <h2>Services</h2>
+                <h2 data-i18n="services.title">Services</h2>
               </div>
             </div>
             <div class="row">
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-solid fa-code"></i>
+                    <i class="fa-solid fa-globe" aria-hidden="true"></i>
                   </div>
-                  <h4>Html 5</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.web.title">Website Development</h4>
+                  <p data-i18n="services.web.desc"></p>
                 </div>
               </div>
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-brands fa-css3"></i>
+                    <i class="fa-brands fa-react" aria-hidden="true"></i>
                   </div>
-                  <h4>Css 3</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.spa.title">React SPA</h4>
+                  <p data-i18n="services.spa.desc"></p>
                 </div>
               </div>
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-brands fa-sass"></i>
+                    <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
                   </div>
-                  <h4>Sass</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.ui.title">UI / Responsive Design</h4>
+                  <p data-i18n="services.ui.desc"></p>
                 </div>
               </div>
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-brands fa-bootstrap"></i>
+                    <i class="fa-brands fa-square-js" aria-hidden="true"></i>
                   </div>
-                  <h4>Bootstrap</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.js.title">JavaScript</h4>
+                  <p data-i18n="services.js.desc"></p>
                 </div>
               </div>
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-brands fa-square-js"></i>
+                    <i class="fa-solid fa-code" aria-hidden="true"></i>
                   </div>
-                  <h4>JavaScript</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.react.title">React</h4>
+                  <p data-i18n="services.react.desc"></p>
                 </div>
               </div>
               <div class="service-item padd-15">
                 <div class="service-item-inner">
                   <div class="icon">
-                    <i id="fa" class="fa-brands fa-react"></i>
+                    <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
                   </div>
-                  <h4>React js</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quibusdam maxime qui necessitatibus!
-                  </p>
+                  <h4 data-i18n="services.mentor.title">Frontend Mentoring</h4>
+                  <p data-i18n="services.mentor.desc"></p>
                 </div>
               </div>
             </div>
@@ -428,378 +602,792 @@
         </section>
 
         <!-- Portfolio section -->
-        <section class="portfolio section" id="portfolio">
+        <section class="portfolio section" id="portfolio" tabindex="-1">
           <div class="container">
             <div class="row">
               <div class="section-title padd-15">
-                <h2>Portfolio</h2>
+                <h2 data-i18n="portfolio.title">Portfolio</h2>
               </div>
             </div>
             <div class="row">
               <div class="portfolio-heading padd-15">
-                <h2>My Projects :</h2>
+                <h2 data-i18n="portfolio.heading">My Projects</h2>
               </div>
             </div>
             <div class="row">
-              <div class="portfolio-item padd-15">
+              <!-- Featured: Codial Gamification V2 -->
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-1.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/mixel.uz"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://mixel-uz-eight.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/gamification-2-dashboard.webp"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                      data-i18n-alt="g2.alt"
+                      alt="Codial Gamification V2 Admin Dashboard"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="g2.title">Codial Gamification V2</h3>
+                    <p data-i18n="g2.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>Tailwind CSS</li>
+                      <li>Dashboard</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <span class="portfolio-badge" data-i18n="portfolio.private"
+                        >Private project</span
+                      >
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <!-- Featured: Codial Gamification V1 (private — real client work) -->
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-2.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/movie"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://movie-rho-flame.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/gamification-1-login.webp"
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                      data-i18n-alt="g1.alt"
+                      alt="Codial Gamification V1 Login"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="g1.title">Codial Gamification V1</h3>
+                    <p data-i18n="g1.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>CSS</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <span class="portfolio-badge" data-i18n="portfolio.private"
+                        >Private project</span
+                      >
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-3.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/country"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://country-gamma-three.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-1.webp"
+                      width="800"
+                      height="392"
+                      loading="lazy"
+                      data-i18n-alt="p1.alt"
+                      alt="Mixel.uz"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p1.title">Mixel.uz</h3>
+                    <p data-i18n="p1.desc"></p>
+                    <ul class="tech-list">
+                      <li>HTML</li>
+                      <li>CSS</li>
+                      <li>JavaScript</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/mixel.uz"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Mixel.uz — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://mixel-uz-eight.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Mixel.uz — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-4.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/crm"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://crm-ten-ruby.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-2.webp"
+                      width="800"
+                      height="381"
+                      loading="lazy"
+                      data-i18n-alt="p2.alt"
+                      alt="Movie App"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p2.title">Movie App</h3>
+                    <p data-i18n="p2.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>REST API</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/movie"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Movie App — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://movie-rho-flame.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Movie App — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-5.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/ExclusiveShop"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://exclusive-shop-ten.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-3.webp"
+                      width="800"
+                      height="403"
+                      loading="lazy"
+                      data-i18n-alt="p3.alt"
+                      alt="Country Explorer"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p3.title">Country Explorer</h3>
+                    <p data-i18n="p3.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>REST Countries API</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/country"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Country Explorer — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://country-gamma-three.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Country Explorer — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-6.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/devfinder"
-                        >
-                          <i id="" class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://devfinder-three-theta.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-4.webp"
+                      width="800"
+                      height="386"
+                      loading="lazy"
+                      data-i18n-alt="p4.alt"
+                      alt="CRM Dashboard"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p4.title">CRM Dashboard</h3>
+                    <p data-i18n="p4.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>Dashboard UI</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/crm"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="CRM Dashboard — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://crm-ten-ruby.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="CRM Dashboard — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-7.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/Jarvis"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://jarvis-pied-five.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-5.webp"
+                      width="800"
+                      height="417"
+                      loading="lazy"
+                      data-i18n-alt="p5.alt"
+                      alt="Exclusive Shop"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p5.title">Exclusive Shop</h3>
+                    <p data-i18n="p5.desc"></p>
+                    <ul class="tech-list">
+                      <li>React</li>
+                      <li>E-commerce</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/ExclusiveShop"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Exclusive Shop — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://exclusive-shop-ten.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Exclusive Shop — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-8.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/Music-Player"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://music-player-iota-plum.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-6.webp"
+                      width="800"
+                      height="589"
+                      loading="lazy"
+                      data-i18n-alt="p6.alt"
+                      alt="DevFinder"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p6.title">DevFinder</h3>
+                    <p data-i18n="p6.desc"></p>
+                    <ul class="tech-list">
+                      <li>JavaScript</li>
+                      <li>GitHub API</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/devfinder"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="DevFinder — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://devfinder-three-theta.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="DevFinder — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="portfolio-item padd-15">
+              </article>
+
+              <article class="portfolio-item padd-15">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
-                    <img src="./images/portfolio/portfolio-9.png" alt="" />
-                    <div class="modal">
-                      <div class="links">
-                        <a
-                          target="_blank"
-                          href="https://github.com/Mirmahmudov/Halloween"
-                        >
-                          <i class="fa-brands fa-square-github">
-                            <span class="icon-info">github</span>
-                          </i>
-                        </a>
-                        <a
-                          target="_blank"
-                          href="https://halloween-rust.vercel.app/"
-                          ><i class="fa-solid fa-link">
-                            <span class="icon-info">link</span>
-                          </i></a
-                        >
-                      </div>
+                    <img
+                      src="./images/portfolio/portfolio-7.webp"
+                      width="800"
+                      height="499"
+                      loading="lazy"
+                      data-i18n-alt="p7.alt"
+                      alt="Jarvis"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p7.title">Jarvis</h3>
+                    <p data-i18n="p7.desc"></p>
+                    <ul class="tech-list">
+                      <li>JavaScript</li>
+                      <li>Web Speech API</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/Jarvis"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Jarvis — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://jarvis-pied-five.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Jarvis — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
+              </article>
+
+              <article class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img
+                      src="./images/portfolio/portfolio-8.webp"
+                      width="800"
+                      height="399"
+                      loading="lazy"
+                      data-i18n-alt="p8.alt"
+                      alt="Music Player"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p8.title">Music Player</h3>
+                    <p data-i18n="p8.desc"></p>
+                    <ul class="tech-list">
+                      <li>JavaScript</li>
+                      <li>Audio API</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/Music-Player"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Music Player — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://music-player-iota-plum.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Music Player — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img
+                      src="./images/portfolio/portfolio-9.webp"
+                      width="800"
+                      height="377"
+                      loading="lazy"
+                      data-i18n-alt="p9.alt"
+                      alt="Halloween Landing"
+                    />
+                  </div>
+                  <div class="portfolio-info">
+                    <h3 data-i18n="p9.title">Halloween Landing</h3>
+                    <p data-i18n="p9.desc"></p>
+                    <ul class="tech-list">
+                      <li>HTML</li>
+                      <li>CSS</li>
+                    </ul>
+                    <div class="portfolio-links">
+                      <a
+                        href="https://github.com/Mirmahmudov/Halloween"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Halloween Landing — GitHub"
+                      >
+                        <i class="fa-brands fa-github" aria-hidden="true"></i>
+                        <span data-i18n="portfolio.code">Code</span>
+                      </a>
+                      <a
+                        href="https://halloween-rust.vercel.app/"
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Halloween Landing — live"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-up-right-from-square"
+                          aria-hidden="true"
+                        ></i>
+                        <span data-i18n="portfolio.live">Live</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>
 
         <!-- Contact Section -->
-        <section class="contact section" id="contact">
+        <section class="contact section" id="contact" tabindex="-1">
           <div class="container">
             <div class="row">
               <div class="section-title padd-15">
-                <h2>Contact Me</h2>
+                <h2 data-i18n="contact.title">Contact Me</h2>
               </div>
             </div>
-            <h3 class="contact-title padd-15">Have You Any Questions?</h3>
-            <h4 class="contact-sub-title padd-15">I'M AT YOUR SERVICES</h4>
-            <div class="row">
+            <h3 class="contact-title padd-15" data-i18n="contact.q1"></h3>
+            <h4 class="contact-sub-title padd-15" data-i18n="contact.sub1"></h4>
+            <div class="row contact-info-row">
               <div class="contact-info-item padd-15">
                 <div class="icon">
-                  <i class="fa fa-phone"></i>
+                  <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
-                <h4>Call Us On</h4>
-                <p>+998 913444468</p>
+                <h4 data-i18n="contact.callMe">Call Me On</h4>
+                <p><a href="tel:+998913444468">+998 91 344 44 68</a></p>
               </div>
               <div class="contact-info-item padd-15">
                 <div class="icon">
-                  <i class="fa fa-map-marker-alt"></i>
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
                 </div>
-                <h4>Office</h4>
-                <p>Namangan Chust, Uzbekistan</p>
+                <h4 data-i18n="contact.email">Email</h4>
+                <p>
+                  <a href="mailto:asadbekmirmahmudov3@gmail.com"
+                    >asadbekmirmahmudov3@gmail.com</a
+                  >
+                </p>
               </div>
               <div class="contact-info-item padd-15">
                 <div class="icon">
-                  <i class="fa fa-envelope"></i>
+                  <i class="fa-brands fa-telegram" aria-hidden="true"></i>
                 </div>
-                <h4>Email</h4>
-                <p>asadbekmirmahmudov3@gmail.com</p>
+                <h4 data-i18n="contact.telegram">Telegram</h4>
+                <p>
+                  <a
+                    href="https://t.me/MirmahmudovAsadbek"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >@MirmahmudovAsadbek</a
+                  >
+                </p>
               </div>
               <div class="contact-info-item padd-15">
                 <div class="icon">
-                  <i class="fa fa-globe-europe"></i>
+                  <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
                 </div>
-                <h4>website</h4>
-                <p>https://bekportfoliosite.netlify.app/</p>
+                <h4 data-i18n="contact.linkedin">LinkedIn</h4>
+                <p>
+                  <a
+                    href="https://www.linkedin.com/in/asadbek-mirmahmudov-744b94282/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >asadbek-mirmahmudov</a
+                  >
+                </p>
+              </div>
+              <div class="contact-info-item padd-15">
+                <div class="icon">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                </div>
+                <h4 data-i18n="contact.github">GitHub</h4>
+                <p>
+                  <a
+                    href="https://github.com/Mirmahmudov"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >github.com/Mirmahmudov</a
+                  >
+                </p>
+              </div>
+              <div class="contact-info-item padd-15">
+                <div class="icon">
+                  <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
+                </div>
+                <h4 data-i18n="contact.location">Location</h4>
+                <p data-i18n="contact.locationValue"></p>
               </div>
             </div>
-            <h3 class="contact-title padd-15">SEND ME AN EMAIL</h3>
-            <h4 class="contact-sub-title padd-15">
-              I'M VERY RESPONSIVE TO MESAGES
-            </h4>
+
+            <h3 class="contact-title padd-15" data-i18n="contact.q2"></h3>
+            <h4 class="contact-sub-title padd-15" data-i18n="contact.sub2"></h4>
+            <p class="contact-via padd-15">
+              <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+              <span data-i18n="contact.viaTelegram"
+                >Messages are delivered to my Telegram bot</span
+              >
+            </p>
             <div class="row">
-              <div class="contact-form padd-15">
+              <form class="contact-form padd-15" id="contact-form" novalidate>
+                <!-- Honeypot — odamlar ko'rmaydi, botlar to'ldiradi -->
+                <input
+                  type="text"
+                  name="website"
+                  class="hp-field"
+                  tabindex="-1"
+                  autocomplete="off"
+                  aria-hidden="true"
+                />
+
                 <div class="row">
                   <div class="form-item col-6 padd-15">
                     <div class="form-group">
+                      <label
+                        class="sr-only"
+                        for="name"
+                        data-i18n="contact.labelName"
+                        >Your name</label
+                      >
                       <input
                         type="text"
+                        id="name"
+                        name="name"
                         class="form-control"
+                        data-i18n-placeholder="contact.name"
                         placeholder="Name"
+                        autocomplete="name"
+                        required
+                        maxlength="80"
                       />
                     </div>
                   </div>
                   <div class="form-item col-6 padd-15">
                     <div class="form-group">
+                      <label
+                        class="sr-only"
+                        for="email"
+                        data-i18n="contact.labelEmail"
+                        >Your email</label
+                      >
                       <input
                         type="email"
+                        id="email"
+                        name="email"
                         class="form-control"
-                        placeholder="email"
+                        data-i18n-placeholder="contact.emailPh"
+                        placeholder="Email"
+                        autocomplete="email"
+                        required
+                        maxlength="120"
                       />
                     </div>
                   </div>
                   <div class="form-item col-12 padd-15">
                     <div class="form-group">
+                      <label
+                        class="sr-only"
+                        for="subject"
+                        data-i18n="contact.labelSubject"
+                        >Subject</label
+                      >
                       <input
                         type="text"
+                        id="subject"
+                        name="subject"
                         class="form-control"
+                        data-i18n-placeholder="contact.subject"
                         placeholder="Subject"
+                        required
+                        maxlength="120"
                       />
                     </div>
                   </div>
                   <div class="form-item col-12 padd-15">
                     <div class="form-group">
+                      <label
+                        class="sr-only"
+                        for="message"
+                        data-i18n="contact.labelMessage"
+                        >Message</label
+                      >
                       <textarea
-                        name=""
+                        id="message"
+                        name="message"
                         class="form-control"
-                        id=""
+                        data-i18n-placeholder="contact.message"
                         placeholder="Message"
+                        required
+                        maxlength="2000"
                       ></textarea>
                     </div>
                   </div>
                   <div class="form-item col-12 padd-15">
-                    <div class="form-group">
-                      <button type="submit" class="btn">Send Message</button>
+                    <div class="form-group form-actions">
+                      <button type="submit" class="btn btn-telegram">
+                        <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+                        <span data-i18n="contact.send">Send Message</span>
+                      </button>
+                      <p
+                        class="form-status"
+                        role="status"
+                        aria-live="polite"
+                      ></p>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </section>
       </div>
     </div>
+
+    <footer class="site-footer" aria-label="Footer">
+      <p>
+        © <span class="js-year">2026</span> Asadbek Mirmahmudov ·
+        <a href="https://t.me/asadbek_dev_bot" target="_blank" rel="noopener"
+          >@asadbek_dev_bot</a
+        >
+      </p>
+    </footer>
+
     <!-- Style Switcher -->
     <div class="style-switcher">
-      <div class="style-switcher-toggler s-icon">
-        <i class="fas fa-cog fa-spin"> </i>
-      </div>
-      <div class="day-night s-icon">
-        <i class="fas"></i>
-      </div>
-      <h4>Theme Colors</h4>
+      <button
+        class="style-switcher-toggler s-icon"
+        type="button"
+        data-i18n-aria-label="switcher.toggleColors"
+        aria-label="Toggle colour picker"
+      >
+        <i class="fas fa-cog fa-spin" aria-hidden="true"></i>
+      </button>
+      <button
+        class="day-night s-icon"
+        type="button"
+        data-i18n-aria-label="switcher.toDark"
+        aria-label="Switch to dark mode"
+      >
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      <h4 data-i18n="switcher.themeColors">Theme Colors</h4>
       <div class="colors">
-        <span class="color-1" onclick="setActiveStyle('color-1')"></span>
-        <span class="color-2" onclick="setActiveStyle('color-2')"></span>
-        <span class="color-3" onclick="setActiveStyle('color-3')"></span>
-        <span class="color-4" onclick="setActiveStyle('color-4')"></span>
-        <span class="color-5" onclick="setActiveStyle('color-5')"></span>
+        <button
+          type="button"
+          class="color-1"
+          data-color="color-1"
+          data-i18n-aria-label="switcher.colorRed"
+          aria-label="Red theme"
+        ></button>
+        <button
+          type="button"
+          class="color-2"
+          data-color="color-2"
+          data-i18n-aria-label="switcher.colorOrange"
+          aria-label="Orange theme"
+        ></button>
+        <button
+          type="button"
+          class="color-3"
+          data-color="color-3"
+          data-i18n-aria-label="switcher.colorGreen"
+          aria-label="Green theme"
+        ></button>
+        <button
+          type="button"
+          class="color-4"
+          data-color="color-4"
+          data-i18n-aria-label="switcher.colorBlue"
+          aria-label="Blue theme"
+        ></button>
+        <button
+          type="button"
+          class="color-5"
+          data-color="color-5"
+          data-i18n-aria-label="switcher.colorPink"
+          aria-label="Pink theme"
+        ></button>
       </div>
     </div>
-  </body>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
-    integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
 
-  <script src="./js/main.js"></script>
-  <script src="./js/style-switcher.js"></script>
+    <!-- Uzun bo'limlarda pastga tushib ketganda paydo bo'ladi -->
+    <button
+      class="scroll-top"
+      type="button"
+      hidden
+      data-i18n-aria-label="a11y.scrollTop"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!--
+      i18n.js "defer"siz — u DOM tayyor bo'lgach, sahifa chizilishidan oldin ishlaydi,
+      shuning uchun matnlar boshqa tilda "miltillab" ketmaydi.
+      Qolgan skriptlar deferred: ular i18n'dan keyin ishga tushadi.
+    -->
+    <script src="./js/i18n.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
+      integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script src="./js/motion.js" defer></script>
+    <script src="./js/main.js" defer></script>
+    <script src="./js/style-switcher.js" defer></script>
+  </body>
 </html>

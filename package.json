@@ -1,0 +1,12 @@
+{
+  "name": "asadbek-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Asadbek Mirmahmudov — Frontend Developer portfolio",
+  "scripts": {
+    "start": "npx --yes serve . -l 5500",
+    "telegram": "node scripts/telegram-dev-server.mjs",
+    "dev": "npx --yes concurrently -k -n site,tg -c cyan,magenta \"npx --yes serve . -l 5500\" \"node scripts/telegram-dev-server.mjs\"",
+    "resumes": "node scripts/build-resumes-pdf.mjs"
+  }
+}

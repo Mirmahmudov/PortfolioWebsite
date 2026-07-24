@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:wght@300;400;500;600;700&display=swap");
 
 :root {
   --bg-black-900: #f2f2fc;
@@ -6,27 +6,25 @@
   --bg-black-50: #e8dfec;
   --text-black-900: #302e4d;
   --text-black-700: #504e70;
+  --shadow-color: rgba(48, 46, 77, 0.15);
+
+  /* Skin fayli yuklanmasa ham sayt rangsiz qolib ketmasligi uchun zaxira qiymat */
+  --skin-color: #ec1839;
 }
 
-body.dark {
+html.dark {
   --bg-black-900: #151515;
   --bg-black-100: #222222;
   --bg-black-50: #393939;
   --text-black-900: #ffffff;
   --text-black-700: #e9e9e9;
-}
-
-body {
-  line-height: 1.5;
-  font-size: 16px;
-  font-family: "Poppins" sans-serif;
+  --shadow-color: rgba(0, 0, 0, 0.6);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  outline: none;
   text-decoration: none;
 }
 
@@ -35,15 +33,113 @@ body {
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-black-900);
+  color: var(--text-black-900);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main-container,
+.main-content {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 ul {
   list-style: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Klaviatura bilan yuruvchilar uchun fokus halqasi ko'rinib turishi shart.
+   Sichqoncha bilan bosganda ko'rinmaydi (:focus-visible) */
+:focus-visible {
+  outline: 2px solid var(--skin-color);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Skrinrider uchun ko'rinadi, ekranda ko'rinmaydi */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tab bosilganda birinchi chiqadigan havola — menyuni o'tkazib yuborish uchun */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 15px;
+  z-index: 200;
+  padding: 10px 20px;
+  border-radius: 0 0 5px 5px;
+  background: var(--skin-color);
+  color: #fff;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.padd-15 {
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 0; /* flex child text overflow oldini oladi */
+}
+
+.container {
+  max-width: 1100px;
+  width: 100%;
+  margin: auto;
+  overflow-x: clip;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+  position: relative;
+  max-width: calc(100% + 20px);
+  width: auto;
+  box-sizing: border-box;
 }
 
 .section {
   background: var(--bg-black-900);
   min-height: 100vh;
+  min-height: 100dvh;
   display: block;
-  padding: 0px 30px;
+  padding: 0 20px;
   opacity: 1;
   position: fixed;
   left: 270px;
@@ -53,7 +149,26 @@ ul {
   z-index: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  transition: all 0.3s ease;
+  overscroll-behavior: contain;
+  transition: left 0.3s ease;
+  /* Transform tashqariga chiqib body scroll yaratmasin */
+  contain: paint;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-black-50) transparent;
+}
+
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background: var(--bg-black-50);
+  border-radius: 8px;
+}
+
+.section::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .section.back-section {
@@ -63,37 +178,25 @@ ul {
 .section.active {
   z-index: 2;
   opacity: 1;
-  animation: slideSection 1s ease;
+  animation: slideSection 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Kichik siljish — 100% translateX gorizontal scroll berardi */
 @keyframes slideSection {
   0% {
-    transform: translateX(100%);
+    opacity: 0;
+    transform: translateX(28px);
   }
 
   100% {
-    transform: translateX(0%);
+    opacity: 1;
+    transform: translateX(0);
   }
-}
-
-.hidden {
-  display: none !important;
-}
-
-.padd-15 {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.container {
-  max-width: 1100px;
-  width: 100%;
-  margin: auto;
 }
 
 .section .container {
   padding-top: 60px;
-  padding-bottom: 70px;
+  padding-bottom: 90px;
 }
 
 .section-title {
@@ -130,14 +233,6 @@ ul {
   margin-top: 8px;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
-  position: relative;
-}
-
 .btn {
   font-size: 16px;
   font-weight: 500;
@@ -147,16 +242,78 @@ ul {
   display: inline-block;
   border: none;
   white-space: nowrap;
+  cursor: pointer;
   background: var(--skin-color);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .btn:hover {
   transform: scale(1.05);
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .shadow-dark {
-  box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+  box-shadow: 0 0 20px var(--shadow-color);
+}
+
+/* Mobil menyu orqasidagi qora parda */
+
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-backdrop.show {
+  opacity: 1;
+}
+
+/* Kompyuterda yon menyu doim ochiq — parda hech qachon kerak emas */
+@media (min-width: 1200px) {
+  .nav-backdrop {
+    display: none;
+  }
+}
+
+/* Yuqoriga qaytish tugmasi */
+
+.scroll-top {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 100;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  background: var(--skin-color);
+  box-shadow: 0 4px 15px var(--shadow-color);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-top.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-top:hover {
+  transform: translateY(-3px);
 }
 
 /* aside */
@@ -196,10 +353,6 @@ ul {
 .aside .logo a span {
   font-family: "Clicker Script", cursive;
   font-size: 40px;
-}
-
-.aside .nav-toggler.open span {
-  background-color: transparent;
 }
 
 .aside .logo a::before {
@@ -248,6 +401,10 @@ ul {
   position: relative;
 }
 
+.aside .nav-toggler.open span {
+  background-color: transparent;
+}
+
 .aside .nav-toggler span::before {
   content: "";
   height: 2px;
@@ -256,6 +413,7 @@ ul {
   position: absolute;
   left: 0px;
   top: -6px;
+  transition: all 0.3s ease;
 }
 
 .aside .nav-toggler.open span::before {
@@ -271,6 +429,7 @@ ul {
   position: absolute;
   left: 0px;
   top: 6px;
+  transition: all 0.3s ease;
 }
 
 .aside .nav-toggler.open span::after {
@@ -294,14 +453,78 @@ ul {
   border-bottom: 1px solid var(--bg-black-50);
   color: var(--text-black-900);
   padding: 5px 15px;
+  transition: color 0.3s ease;
 }
 
+.aside .nav li a:hover,
 .aside .nav li a.active {
   color: var(--skin-color);
 }
 
 .aside .nav li a i {
   margin-right: 15px;
+}
+
+/* Til almashtirgich (yon panelning pastida) */
+
+.aside .lang-switcher {
+  position: absolute;
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.aside .lang-switcher button {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--bg-black-50);
+  background: transparent;
+  color: var(--text-black-700);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.aside .lang-switcher button:hover {
+  color: var(--skin-color);
+  border-color: var(--skin-color);
+}
+
+.aside .lang-switcher button.active {
+  background: var(--skin-color);
+  border-color: var(--skin-color);
+  color: #fff;
+}
+
+.aside .aside-social {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+}
+
+.aside .aside-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--bg-black-50);
+  color: var(--text-black-700);
+  font-size: 16px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.aside .aside-social a:hover {
+  color: #fff;
+  border-color: var(--skin-color);
+  background: var(--skin-color);
 }
 
 /* home */
@@ -315,14 +538,17 @@ ul {
 .home .home-info {
   flex: 0 0 60%;
   max-width: 60%;
+  min-width: 0;
 }
 
 h3.hello {
-  font-size: 28px;
+  font-size: clamp(22px, 2.4vw, 28px);
   margin: 15px 0;
+  overflow-wrap: anywhere;
 }
 
-h3.hello span {
+/* Faqat ism qiyshiq shriftda — sarlavhaning qolgan qismi oddiy qoladi */
+h3.hello .name {
   font-family: "Clicker Script", cursive;
   font-size: 30px;
   font-weight: 700;
@@ -330,8 +556,9 @@ h3.hello span {
 }
 
 h3.my-profession {
-  font-size: 30px;
+  font-size: clamp(22px, 2.6vw, 30px);
   margin: 15px 0;
+  overflow-wrap: anywhere;
 }
 
 .typing {
@@ -339,9 +566,11 @@ h3.my-profession {
 }
 
 .home-info p {
-  margin-bottom: 70px;
-  font-size: 20px;
+  margin-bottom: 40px;
+  font-size: clamp(15px, 1.5vw, 18px);
   color: var(--text-black-700);
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .home .home-img {
@@ -349,40 +578,47 @@ h3.my-profession {
   max-width: 40%;
   text-align: center;
   position: relative;
+  overflow: visible;
+  min-width: 0;
 }
 
 .home-img::after {
   content: "";
   position: absolute;
-  height: 80px;
-  width: 80px;
-  border-bottom: 10px solid var(--skin-color);
-  border-right: 10px solid var(--skin-color);
-  right: 20px;
-  bottom: -40px;
+  height: 60px;
+  width: 60px;
+  border-bottom: 8px solid var(--skin-color);
+  border-right: 8px solid var(--skin-color);
+  right: 12px;
+  bottom: -12px;
+  pointer-events: none;
 }
 
 .home-img::before {
   content: "";
   position: absolute;
-  height: 80px;
-  width: 80px;
-  border-top: 10px solid var(--skin-color);
-  border-left: 10px solid var(--skin-color);
-  left: 20px;
-  top: -40px;
+  height: 60px;
+  width: 60px;
+  border-top: 8px solid var(--skin-color);
+  border-left: 8px solid var(--skin-color);
+  left: 12px;
+  top: -12px;
+  pointer-events: none;
 }
 
 .home .home-img img {
   margin: auto;
-  height: 400px;
+  height: min(400px, 52vh);
+  max-width: 100%;
+  width: auto;
   border-radius: 5px;
+  display: block;
 }
 
 /* About */
 
 .about .about-content {
-  float: 0 0 100%;
+  flex: 0 0 100%;
   max-width: 100%;
 }
 
@@ -398,7 +634,8 @@ h3.my-profession {
   color: var(--text-black-900);
 }
 
-.about .about-content .about-text h3 span {
+/* Faqat kasb nomi rangli — ism qora matnda qoladi */
+.about .about-content .about-text h3 .role {
   color: var(--skin-color);
 }
 
@@ -406,6 +643,7 @@ h3.my-profession {
   font-size: 16px;
   line-height: 25px;
   color: var(--text-black-700);
+  margin-bottom: 15px;
 }
 
 .about .about-content .personal-info {
@@ -420,12 +658,12 @@ h3.my-profession {
 }
 
 .about .about-content .personal-info .info-item p {
-
   font-weight: 600;
   padding: 10px 0;
   font-size: 16px;
   color: var(--text-black-900);
   border-bottom: 1px solid var(--bg-black-50);
+  word-break: break-word;
 }
 
 .about .about-content .personal-info .info-item p span,
@@ -434,6 +672,17 @@ h3.my-profession {
   color: var(--text-black-700);
   margin-left: 4px;
   display: inline-block;
+}
+
+/* Chapdagi nom ("Email :", "Telefon :" ...) — qiymatdan farqli, quyuqroq */
+.about .about-content .personal-info .info-item p .info-label {
+  font-weight: 600;
+  color: var(--text-black-900);
+  margin-left: 0;
+}
+
+.about .about-content .personal-info .info-item p a:hover {
+  color: var(--skin-color);
 }
 
 .about .about-content .personal-info .buttons {
@@ -445,14 +694,15 @@ h3.my-profession {
 }
 
 .about .about-content .skills {
-  flex: 0 0 40%;
-  max-width: 40%;
+  flex: 0 0 50%;
+  max-width: 50%;
   margin-top: 40px;
 }
 
 .about .about-content .skills .skill-item {
   flex: 0 0 100%;
   max-width: 100%;
+  margin-bottom: 25px;
 }
 
 .about .about-content .skills .skill-item h5 {
@@ -471,17 +721,17 @@ h3.my-profession {
   position: relative;
 }
 
-.about .about-content .skills .skills .skill-item {
-  margin-bottom: 25px;
-}
-
+/* Boshlang'ich kengligi 0 — About bo'limi ochilganda JS uni data-width qiymatiga
+   yetkazadi, natijada barlar chiroyli to'lib boradi */
 .about .about-content .skills .skill-item .progress .progress-in {
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
+  width: 0;
   border-radius: 4px;
   background: var(--skin-color);
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .about .about-content .skills .skill-item .skill-percent {
@@ -558,8 +808,8 @@ h3.my-profession {
   color: var(--text-black-700);
 }
 
-.about .about-content .timeline .timeline-date #fa,
-.about .about-content .timeline .timeline-date .fa {
+.about .about-content .timeline .timeline-date .fa,
+.about .about-content .timeline .timeline-date [class*="fa-"] {
   margin-right: 5px;
 }
 
@@ -574,11 +824,11 @@ h3.my-profession {
 .about .about-content .timeline .timeline-text {
   line-height: 25px;
   font-size: 16px;
-  text-align: justify;
   color: var(--text-black-700);
 }
 
 /* service */
+
 .service .container {
   padding-bottom: 40px;
 }
@@ -587,6 +837,7 @@ h3.my-profession {
   margin-bottom: 30px;
   flex: 0 0 33.33%;
   max-width: 33.33%;
+  min-width: 0;
 }
 
 .service .service-item .service-item-inner {
@@ -594,13 +845,13 @@ h3.my-profession {
   border: 1px solid var(--bg-black-50);
   border-radius: 10px;
   padding: 30px 15px;
-  transition: all 0.3s ease;
+  height: 100%;
+  transition: box-shadow 0.3s ease;
   text-align: center;
-  cursor: pointer;
 }
 
 .service .service-item .service-item-inner:hover {
-  box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+  box-shadow: 0 0 20px var(--shadow-color);
 }
 
 .service .service-item .service-item-inner .icon {
@@ -610,25 +861,21 @@ h3.my-profession {
   display: block;
   margin: 0 auto 30px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
-.service .service-item .service-item-inner .icon #fa,
-.service .service-item .service-item-inner .icon .fa {
+.service .service-item .service-item-inner .icon [class*="fa-"] {
   font-size: 40px;
   line-height: 60px;
   color: var(--skin-color);
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .service .service-item .service-item-inner:hover .icon {
   background-color: var(--skin-color);
 }
 
-.service .service-item .service-item-inner:hover .icon #fa,
-.service .service-item .service-item-inner:hover .icon .fa {
-
-  font-size: 25px;
+.service .service-item .service-item-inner:hover .icon [class*="fa-"] {
   color: white;
 }
 
@@ -636,7 +883,6 @@ h3.my-profession {
   font-size: 18px;
   margin-bottom: 15px;
   color: var(--text-black-900);
-  text-transform: capitalize;
   font-weight: 700;
 }
 
@@ -646,7 +892,8 @@ h3.my-profession {
   line-height: 25px;
 }
 
-/* Portfolio   */
+/* Portfolio */
+
 .portfolio .container {
   padding-bottom: 40px;
 }
@@ -664,112 +911,109 @@ h3.my-profession {
 
 .portfolio .portfolio-item {
   flex: 0 0 33.33%;
-  max-width: 33%;
+  max-width: 33.33%;
   margin-bottom: 30px;
+  min-width: 0;
 }
 
 .portfolio .portfolio-item-inner {
+  background-color: var(--bg-black-100);
   border: 6px solid var(--bg-black-100);
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  height: 100%;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .portfolio .portfolio-item-inner:hover {
-  transform: rotate(2deg);
-  box-shadow: 2px 2px 20px black;
-}
-
-.portfolio .portfolio-item-inner:hover img {
-  transform: scale(1.3);
-  transition: all 0.3s ease-in-out;
-
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .portfolio .portfolio-item-inner .portfolio-img {
   height: 200px;
   position: relative;
-  transition: all 0.3s ease-in-out;
-
-
+  overflow: hidden;
+  border-radius: 4px;
 }
-
-.portfolio .portfolio-item-inner .portfolio-img .modal {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: rgba(0, 0, 0, 0.616);
-  backdrop-filter: blur(5px);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: scale(0);
-  transition: all 0.3s ease-in-out;
-  opacity: 0;
-
-}
-
-
-.portfolio .portfolio-item-inner .portfolio-img:hover .modal {
-  transform: scale(1);
-  opacity: 1;
-
-}
-
-.portfolio .portfolio-item-inner .portfolio-img .modal .links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-}
-
-.portfolio .portfolio-item-inner .portfolio-img .modal .links i {
-  transition: all 0.1s ease-in-out;
-}
-
-.portfolio .portfolio-item-inner .portfolio-img .modal .links a {
-  font-size: 30px;
-  color: white;
-}
-
-.portfolio .portfolio-item-inner .portfolio-img .modal .links i span {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: all 0.5s ease !important;
-  font-weight: 300;
-  top: -60px;
-  font-size: 12px;
-  color: var(--skin-color);
-  color: white;
-  transition: all 0.1s ease-in-out;
-}
-
-.portfolio .portfolio-item-inner .portfolio-img .modal i:hover span {
-  opacity: 1;
-  top: -30px;
-  color: var(--skin-color);
-  color: white;
-
-}
-
-
-
 
 .portfolio .portfolio-item-inner .portfolio-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* "CONTACT" */
+.portfolio .portfolio-item-inner:hover .portfolio-img img {
+  transform: scale(1.1);
+}
+
+.portfolio .portfolio-info {
+  padding: 18px 10px 10px;
+}
+
+.portfolio .portfolio-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-black-900);
+  margin-bottom: 6px;
+}
+
+.portfolio .portfolio-info p {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--text-black-700);
+  margin-bottom: 12px;
+}
+
+.portfolio .tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.portfolio .tech-list li {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--skin-color);
+  border: 1px solid var(--skin-color);
+}
+
+/*
+  Havolalar rasm ostida, doim ko'rinib turadi.
+  Ilgari ular faqat hover'da chiqardi — telefonda hover yo'q,
+  ya'ni mobil foydalanuvchi loyihani umuman ocha olmasdi.
+*/
+.portfolio .portfolio-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.portfolio .portfolio-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-black-700);
+  background: var(--bg-black-900);
+  border: 1px solid var(--bg-black-50);
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.portfolio .portfolio-links a:hover {
+  color: #fff;
+  background: var(--skin-color);
+  border-color: var(--skin-color);
+}
+
+/* Contact */
 
 .contact-title {
   color: var(--skin-color);
@@ -786,19 +1030,20 @@ h3.my-profession {
 }
 
 .contact .contact-info-item {
-  flex: 0 0 25%;
-  max-width: 25%;
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .contact .contact-info-item .icon {
   display: inline-block;
 }
 
-.contact .contact-info-item .icon #fa,
-.contact .contact-info-item .icon .fa {
-
+.contact .contact-info-item .icon [class*="fa-"] {
   font-size: 25px;
   color: var(--skin-color);
 }
@@ -817,6 +1062,11 @@ h3.my-profession {
   line-height: 25px;
   color: var(--text-black-700);
   font-weight: 400;
+  word-break: break-word;
+}
+
+.contact .contact-info-item a:hover {
+  color: var(--skin-color);
 }
 
 .contact .contact-form {
@@ -845,24 +1095,160 @@ h3.my-profession {
   background-color: var(--bg-black-100);
   border: 1px solid var(--bg-black-50);
   padding: 10px 25px;
+  font-family: inherit;
   font-size: 16px;
   color: var(--text-black-700);
-  transition: all 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .contact .contact-form .form-item .form-control:focus {
-  box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+  box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.contact .contact-form .form-item .form-control:invalid:not(:placeholder-shown) {
+  border-color: #e04141;
 }
 
 .contact .contact-form .form-item textarea.form-control {
   height: 140px;
+  padding-top: 15px;
+  resize: vertical;
 }
 
 .contact .contact-form .btn {
   height: 50px;
   padding: 0px 50px;
-  cursor: pointer;
 }
+
+.contact .contact-via {
+  text-align: center;
+  color: var(--text-black-700);
+  font-size: 14px;
+  margin: -30px 0 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.contact .contact-via i {
+  color: #2AABEE;
+  font-size: 18px;
+}
+
+.contact .form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact .btn-telegram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+  box-shadow: 0 8px 20px rgba(42, 171, 238, 0.28);
+}
+
+.contact .btn-telegram:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(42, 171, 238, 0.35);
+}
+
+.contact .btn-telegram i {
+  font-size: 18px;
+}
+
+.contact .btn-telegram:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+/* Honeypot — off-screen */
+.contact .hp-field {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.portfolio .portfolio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-black-700);
+  background: var(--bg-black-900);
+  border: 1px dashed var(--bg-black-50);
+}
+
+.portfolio .portfolio-badge::before {
+  content: "🔒";
+  font-size: 12px;
+}
+
+.contact .form-status {
+  margin-top: 0;
+  font-size: 15px;
+  color: var(--text-black-700);
+  min-height: 22px;
+}
+
+.contact .form-status.success {
+  color: #2e9e5b;
+}
+
+.contact .form-status.error {
+  color: #e04141;
+}
+
+/* Footer */
+.site-footer {
+  position: fixed;
+  left: 270px;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+  text-align: center;
+  padding: 8px 16px 10px;
+  font-size: 12px;
+  color: var(--text-black-700);
+  opacity: 0.75;
+  background: linear-gradient(transparent, var(--bg-black-900));
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.site-footer p {
+  pointer-events: auto;
+}
+
+.site-footer a {
+  color: var(--skin-color);
+  font-weight: 500;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1199px) {
+  .site-footer {
+    left: 0;
+  }
+}
+
+/* Responsive */
 
 @media (max-width: 1199px) {
   .section .container {
@@ -894,19 +1280,27 @@ h3.my-profession {
     left: 270px;
   }
 
-  .about .about-content .personal-info .info-item p span {
+  /* Tor ekranda qiymat o'z qatoriga tushadi, nom esa joyida qoladi */
+  .about .about-content .personal-info .info-item p span:not(.info-label) {
     display: block;
     margin-left: 0px;
   }
 }
 
 @media (max-width: 991px) {
-
   .contact .contact-info-item,
   .portfolio .portfolio-item,
   .service .service-item {
     flex: 0 0 50%;
     max-width: 50%;
+  }
+
+  .aside .lang-switcher {
+    bottom: 72px;
+  }
+
+  .home {
+    padding-top: 30px;
   }
 
   .home .home-info {
@@ -920,7 +1314,6 @@ h3.my-profession {
 }
 
 @media (max-width: 767px) {
-
   .contact .contact-form .col-6,
   .contact .contact-info-item,
   .portfolio .portfolio-item,
@@ -931,5 +1324,21 @@ h3.my-profession {
   .about .about-content .personal-info {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+
+  .section-title h2 {
+    font-size: 32px;
+  }
+}
+
+/* Harakat kamaytirilgan rejim yoqilgan foydalanuvchilar uchun animatsiyalarni o'chiramiz */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

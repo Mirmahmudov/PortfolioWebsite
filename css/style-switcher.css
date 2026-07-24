@@ -1,6 +1,7 @@
 .style-switcher {
   position: fixed;
-  right: 0;
+  /* translateX o'rniga right — gorizontal scroll chiqmasin */
+  right: -220px;
   top: 30px;
   padding: 15px;
   width: 200px;
@@ -8,17 +9,19 @@
   background: var(--bg-black-100);
   z-index: 101;
   border-radius: 5px;
-  transition: all 0.3s ease;
-  transform: translateX(100%);
+  transition: right 0.3s ease;
+  box-sizing: border-box;
 }
+
 .style-switcher.open {
-  transform: translateX(-25px);
+  right: 25px;
 }
 
 .style-switcher .s-icon {
   position: absolute;
   height: 40px;
   width: 40px;
+  padding: 0;
   text-align: center;
   font-size: 20px;
   background-color: var(--bg-black-100);
@@ -27,9 +30,14 @@
   border: 1px solid var(--bg-black-50);
   margin-right: 25px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   border-radius: 50%;
 }
+
+.style-switcher .s-icon:hover {
+  color: var(--skin-color);
+}
+
 .style-switcher .s-icon i {
   line-height: 40px;
 }
@@ -56,25 +64,37 @@
   justify-content: space-between;
 }
 
-.style-switcher .colors span {
+.style-switcher .colors button {
   display: inline-block;
   height: 30px;
   width: 30px;
+  padding: 0;
+  border: none;
   border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
+
+.style-switcher .colors button:hover {
+  transform: scale(1.15);
+}
+
 .style-switcher .color-1 {
   background-color: #ec1839;
 }
+
 .style-switcher .color-2 {
   background-color: #fa5b0f;
 }
+
 .style-switcher .color-3 {
   background-color: #37b182;
 }
+
 .style-switcher .color-4 {
   background-color: #1854b4;
 }
+
 .style-switcher .color-5 {
   background-color: #f021b2;
 }
