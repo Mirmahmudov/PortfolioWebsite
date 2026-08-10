@@ -25,6 +25,7 @@ const TRANSLATIONS = {
     "nav.about": "Men haqimda",
     "nav.services": "Xizmatlar",
     "nav.portfolio": "Portfolio",
+    "nav.blog": "Blog",
     "nav.contact": "Aloqa",
 
     "home.hello": "Salom, mening ismim",
@@ -111,10 +112,37 @@ const TRANSLATIONS = {
       "Codial Academy tajribasi asosida HTML, CSS, JS va React bo'yicha dars va mentoring.",
 
     "portfolio.title": "Portfolio",
-    "portfolio.heading": "Mening loyihalarim",
+    "portfolio.heading": "Real va shaxsiy loyihalarim — React, JavaScript va zamonaviy UI",
     "portfolio.code": "Kod",
     "portfolio.live": "Sayt",
     "portfolio.private": "Maxfiy loyiha",
+
+    "blog.title": "Blog",
+    "blog.lead":
+      "Frontend dasturchi va mentor sifatidagi ishimdan qisqa yozuvlar.",
+    "blog.readMore": "Batafsil o'qish",
+    "blog.back": "Blogga qaytish",
+    "blog.b1.tag": "Mentorlik",
+    "blog.b1.date": "12-noyabr, 2025",
+    "blog.b1.title": "Frontend o'qitish menga nima o'rgatdi",
+    "blog.b1.excerpt":
+      "Codial Academy da dars berish — faqat kod yozish emas, boshqalarga tushuntirish orqali o'zingni ham chuqurroq o'rganish.",
+    "blog.b1.body":
+      "Yordamchi o'qituvchidan to'liq Frontend o'qituvchisiga o'tish jarayonida tushundim: yaxshi dars — bu oddiy demo emas. Har bir mavzuni kichik amaliy vazifaga aylantirish, xatolarni ochiq tahlil qilish va real loyiha oqimini ko'rsatish kerak. O'quvchilar UI komponent, API integratsiya va suhbatga tayyorgarlikda eng ko'p qiynaladi. Shu sabab darslarimda nazariyadan ko'ra ko'proq amaliyot va portfolio topshiriqlariga urg'u beraman.",
+    "blog.b2.tag": "Loyihalar",
+    "blog.b2.date": "20-fevral, 2026",
+    "blog.b2.title": "Real gamification tizimini qurish",
+    "blog.b2.excerpt":
+      "Codial uchun V1 va V2 gamification: rollar, dashboard, statistika va auksion. Bu pet-project emas — haqiqiy foydalanuvchilar bilan ishlaydigan tizim.",
+    "blog.b2.body":
+      "V1 da asosiy oqim va oddiy interfeys muhim edi — 70+ foydalanuvchi. V2 da multi-role (o'quvchi, ustoz, admin), monitoring, statistika va auksion qo'shildi — 100+ foydalanuvchi. Eng qiyin qism: rollar bo'yicha ruxsatlar va admin paneldagi ma'lumot zichligini sodda saqlash. React + Tailwind yordamida qayta ishlatiladigan komponentlar va aniq navigatsiya yechimini tanladim. Live ochiq emas (maxfiy mijoz loyihasi), lekin natija va arxitektura portfolioimning eng kuchli qismi.",
+    "blog.b3.tag": "React",
+    "blog.b3.date": "8-may, 2026",
+    "blog.b3.title": "React loyihalarini qanday tuzaman",
+    "blog.b3.excerpt":
+      "Kichik SPA dan katta dashboardgacha bir xil tartib: papkalar, komponentlar, API qatlami va sodda nomlash.",
+    "blog.b3.body":
+      "Odatda papkalarni features / components / hooks / services bo'yicha ajrataman. UI ni kichik qayta ishlatiladigan qismlarga bo'laman, API chaqiriqlarini alohida joyda ushlayman, holatni faqat kerak joyda saqlayman. TypeScript imkon qadar qo'shaman — xatolarni erta ushlash uchun. Vite bilan boshlayman, keyin routing va forma validatsiyasini qo'shaman. Maqsad: yangi funksiya qo'shish oson, eski kodni o'qish qiyin bo'lmasin.",
 
     "g2.title": "Codial Gamification V2",
     "g2.desc":
@@ -154,18 +182,18 @@ const TRANSLATIONS = {
     "p9.alt": "Halloween landing sahifasining skrinshoti",
 
     "contact.title": "Aloqa",
-    "contact.q1": "Savollaringiz bormi?",
-    "contact.sub1": "XIZMATINGIZGA TAYYORMAN",
-    "contact.callMe": "Qo'ng'iroq qiling",
+    "contact.intro":
+      "Loyihangiz haqida gaplashishga tayyorman. Quyidagi forma orqali menga murojaat qiling yoki to'g'ridan-to'g'ri bog'laning. Har bir loyihaga individual yondashuv va professional yechimlar taklif etaman.",
+    "contact.directTitle": "To'g'ridan-to'g'ri bog'lanish",
+    "contact.formTitle": "Xabar yuborish",
+    "contact.callMe": "Telefon",
     "contact.location": "Manzil",
     "contact.locationValue": "Chust, Namangan, O'zbekiston",
     "contact.email": "Email",
     "contact.github": "GitHub",
     "contact.telegram": "Telegram",
     "contact.linkedin": "LinkedIn",
-    "contact.q2": "MENGA XAT YOZING",
-    "contact.sub2": "XABAR TELEGRAMGA KELADI",
-    "contact.viaTelegram": "Xabar to'g'ridan-to'g'ri Telegram botimga yuboriladi",
+    "contact.viaTelegram": "Xabar Telegram orqali yetib boradi",
     "contact.name": "Ism",
     "contact.emailPh": "Email",
     "contact.subject": "Mavzu",
@@ -211,6 +239,7 @@ const TRANSLATIONS = {
     "nav.about": "Обо мне",
     "nav.services": "Услуги",
     "nav.portfolio": "Портфолио",
+    "nav.blog": "Блог",
     "nav.contact": "Контакты",
 
     "home.hello": "Привет, меня зовут",
@@ -297,10 +326,37 @@ const TRANSLATIONS = {
       "Обучение HTML, CSS, JS и React — опыт преподавателя Codial Academy.",
 
     "portfolio.title": "Портфолио",
-    "portfolio.heading": "Мои проекты",
+    "portfolio.heading": "Реальные и личные проекты — React, JavaScript и современный UI",
     "portfolio.code": "Код",
     "portfolio.live": "Сайт",
     "portfolio.private": "Закрытый проект",
+
+    "blog.title": "Блог",
+    "blog.lead":
+      "Короткие заметки о работе frontend-разработчиком и ментором.",
+    "blog.readMore": "Читать полностью",
+    "blog.back": "Назад к блогу",
+    "blog.b1.tag": "Менторство",
+    "blog.b1.date": "12 ноября 2025",
+    "blog.b1.title": "Чему меня научило преподавание frontend",
+    "blog.b1.excerpt":
+      "Преподавание в Codial Academy — это не только код, но и более глубокое понимание через объяснение другим.",
+    "blog.b1.body":
+      "Переход от ассистента к полному Frontend-инструктору показал: хороший урок — не просто демо. Нужно превращать тему в маленькие практические задачи, открыто разбирать ошибки и показывать реальный проектный поток. Студенты чаще всего спотыкаются на UI-компонентах, API и подготовке к собеседованиям. Поэтому в уроках я делаю упор на практику и портфолио-задания, а не только на теорию.",
+    "blog.b2.tag": "Проекты",
+    "blog.b2.date": "20 февраля 2026",
+    "blog.b2.title": "Как я строил реальную систему геймификации",
+    "blog.b2.excerpt":
+      "Gamification V1 и V2 для Codial: роли, dashboard, статистика и аукцион. Не pet-project — система с реальными пользователями.",
+    "blog.b2.body":
+      "В V1 важны были базовый поток и простой UI — 70+ пользователей. В V2 появились multi-role (студент, ментор, админ), мониторинг, статистика и аукцион — 100+ пользователей. Самое сложное: права по ролям и плотность данных в админке без перегруза. Выбрал React + Tailwind, переиспользуемые компоненты и понятную навигацию. Live закрыт (клиентский проект), но результат и архитектура — сильная часть портфолио.",
+    "blog.b3.tag": "React",
+    "blog.b3.date": "8 мая 2026",
+    "blog.b3.title": "Как я структурирую React-проекты",
+    "blog.b3.excerpt":
+      "От небольшого SPA до dashboard — один порядок: папки, компоненты, API-слой и понятные имена.",
+    "blog.b3.body":
+      "Обычно делю проект на features / components / hooks / services. UI дроблю на мелкие переиспользуемые части, API выношу отдельно, состояние храню только там, где нужно. По возможности добавляю TypeScript. Стартую с Vite, затем routing и валидацию форм. Цель: легко добавлять функции и легко читать старый код.",
 
     "g2.title": "Codial Gamification V2",
     "g2.desc":
@@ -340,18 +396,18 @@ const TRANSLATIONS = {
     "p9.alt": "Скриншот лендинга Halloween",
 
     "contact.title": "Контакты",
-    "contact.q1": "Остались вопросы?",
-    "contact.sub1": "Я К ВАШИМ УСЛУГАМ",
-    "contact.callMe": "Позвоните мне",
+    "contact.intro":
+      "Готов обсудить ваш проект. Напишите через форму ниже или свяжитесь напрямую. К каждому проекту подхожу индивидуально и предлагаю профессиональные решения.",
+    "contact.directTitle": "Связаться напрямую",
+    "contact.formTitle": "Отправить сообщение",
+    "contact.callMe": "Телефон",
     "contact.location": "Локация",
     "contact.locationValue": "Чуст, Наманган, Узбекистан",
     "contact.email": "Эл. почта",
     "contact.github": "GitHub",
     "contact.telegram": "Telegram",
     "contact.linkedin": "LinkedIn",
-    "contact.q2": "НАПИШИТЕ МНЕ",
-    "contact.sub2": "СООБЩЕНИЕ ПРИДЁТ В TELEGRAM",
-    "contact.viaTelegram": "Сообщение сразу уходит в мой Telegram-бот",
+    "contact.viaTelegram": "Сообщение придёт в Telegram",
     "contact.name": "Имя",
     "contact.emailPh": "Эл. почта",
     "contact.subject": "Тема",
@@ -397,6 +453,7 @@ const TRANSLATIONS = {
     "nav.about": "About",
     "nav.services": "Services",
     "nav.portfolio": "Portfolio",
+    "nav.blog": "Blog",
     "nav.contact": "Contact",
 
     "home.hello": "Hello, my name is",
@@ -483,10 +540,37 @@ const TRANSLATIONS = {
       "Teaching HTML, CSS, JS, and React — based on Codial Academy instructor experience.",
 
     "portfolio.title": "Portfolio",
-    "portfolio.heading": "My Projects",
+    "portfolio.heading": "Real and personal projects — React, JavaScript, and modern UI",
     "portfolio.code": "Code",
     "portfolio.live": "Live",
     "portfolio.private": "Private project",
+
+    "blog.title": "Blog",
+    "blog.lead":
+      "Short notes from my work as a frontend developer and mentor.",
+    "blog.readMore": "Read full article",
+    "blog.back": "Back to blog",
+    "blog.b1.tag": "Mentoring",
+    "blog.b1.date": "12 Nov 2025",
+    "blog.b1.title": "What teaching frontend taught me",
+    "blog.b1.excerpt":
+      "Teaching at Codial Academy is not only writing code — explaining to others deepens your own understanding.",
+    "blog.b1.body":
+      "Moving from assistant to full Frontend Instructor showed me a good lesson is more than a demo. You need small practical tasks, open error reviews, and a real project workflow. Students struggle most with UI components, API integration, and interview prep. That is why my lessons focus on practice and portfolio work more than pure theory.",
+    "blog.b2.tag": "Projects",
+    "blog.b2.date": "20 Feb 2026",
+    "blog.b2.title": "Building a real gamification system",
+    "blog.b2.excerpt":
+      "Codial Gamification V1 and V2: roles, dashboard, stats, and auction. Not a pet project — a system with real users.",
+    "blog.b2.body":
+      "V1 focused on the core flow and a simple UI — 70+ users. V2 added multi-role access (student, mentor, admin), monitoring, stats, and an auction — 100+ users. The hardest part was role permissions and dense admin data without clutter. I chose React + Tailwind, reusable components, and clear navigation. Live is private (client work), but the outcome and architecture are a strong part of my portfolio.",
+    "blog.b3.tag": "React",
+    "blog.b3.date": "8 May 2026",
+    "blog.b3.title": "How I structure React projects",
+    "blog.b3.excerpt":
+      "From a small SPA to a dashboard — the same order: folders, components, API layer, and clear naming.",
+    "blog.b3.body":
+      "I usually split features / components / hooks / services. UI stays in small reusable pieces, API calls live separately, and state only where needed. I add TypeScript when I can. I start with Vite, then routing and form validation. The goal: easy to extend and easy to read later.",
 
     "g2.title": "Codial Gamification V2",
     "g2.desc":
@@ -526,18 +610,18 @@ const TRANSLATIONS = {
     "p9.alt": "Screenshot of the Halloween landing page",
 
     "contact.title": "Contact Me",
-    "contact.q1": "Have You Any Questions?",
-    "contact.sub1": "I'M AT YOUR SERVICE",
-    "contact.callMe": "Call Me On",
+    "contact.intro":
+      "I'm ready to talk about your project. Reach me through the form below or contact me directly. I take an individual approach to every project and offer professional solutions.",
+    "contact.directTitle": "Contact directly",
+    "contact.formTitle": "Send a message",
+    "contact.callMe": "Phone",
     "contact.location": "Location",
     "contact.locationValue": "Chust, Namangan, Uzbekistan",
     "contact.email": "Email",
     "contact.github": "GitHub",
     "contact.telegram": "Telegram",
     "contact.linkedin": "LinkedIn",
-    "contact.q2": "SEND ME A MESSAGE",
-    "contact.sub2": "DELIVERED TO MY TELEGRAM",
-    "contact.viaTelegram": "Your message is sent straight to my Telegram bot",
+    "contact.viaTelegram": "Messages are delivered via Telegram",
     "contact.name": "Name",
     "contact.emailPh": "Email",
     "contact.subject": "Subject",

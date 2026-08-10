@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio — Admin CMS</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <header class="topbar">
+        <div>
+          <h1>Portfolio loyihalari</h1>
+          <p>Ro‘yxat · tahrirlash alohida sahifada ochiladi</p>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <a class="btn btn-primary" href="project-edit.html">
+          <i class="fa fa-plus"></i> Yangi loyiha
+        </a>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Sarlavha</th>
+              <th>Private</th>
+              <th>Published</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="projects-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const { toast, requireAuth, mountShell, escapeHtml, badge } = AdminUI;
+        const session = requireAuth();
+        if (!session) return;
+        mountShell("projects", session);
+
+        const data = await cmsStore.load();
+        const list = data.projects || [];
+        const tbody = document.getElementById("projects-tbody");
+
+        if (!list.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="empty">Hali loyiha yo‘q. «Yangi loyiha» bosing.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = list
+          .map(
+            (p, i) => `<tr>
+          <td>${p.sort_order ?? i}</td>
+          <td>${escapeHtml(p.title_uz || p.title_en || "—")}</td>
+          <td>${badge(!!p.is_private, "private", "public")}</td>
+          <td>${badge(!!p.published, "yes", "no")}</td>
+          <td class="row-actions">
+            <a class="btn btn-sm btn-ghost" href="project-edit.html?id=${encodeURIComponent(
+              p.id
+            )}"><i class="fa fa-pen"></i> Tahrirlash</a>
+            <button type="button" class="btn btn-sm btn-danger" data-del="${escapeHtml(
+              String(p.id)
+            )}">O‘chirish</button>
+          </td>
+        </tr>`
+          )
+          .join("");
+
+        tbody.querySelectorAll("[data-del]").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("Bu loyihani o‘chirasizmi?")) return;
+            const next = (cmsStore.read().projects || []).filter(
+              (x) => String(x.id) !== String(btn.dataset.del)
+            );
+            cmsStore.saveProjects(next);
+            toast("O‘chirildi");
+            location.reload();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

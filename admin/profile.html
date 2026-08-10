@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil — Admin CMS</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <header class="topbar">
+        <div>
+          <h1>Profil</h1>
+          <p>Faqat kerakli maydonlar · bo‘limlarga bo‘lingan</p>
+        </div>
+      </header>
+
+      <form id="profile-form" class="profile-sections">
+        <!-- 1. Kontakt -->
+        <details class="profile-section" open>
+          <summary>
+            <span><i class="fa fa-address-card" style="margin-right: 8px; color: #ff6b81"></i>Kontakt</span>
+          </summary>
+          <div class="section-body">
+            <p class="hint">Ism, telefon, email va ijtimoiy tarmoqlar</p>
+            <div class="field-row">
+              <span>Ism</span>
+              <input id="pr-name" type="text" placeholder="Asadbek Mirmahmudov" />
+            </div>
+            <div class="field-row">
+              <span>Telefon</span>
+              <input id="pr-phone" type="text" placeholder="+998 ..." />
+            </div>
+            <div class="field-row">
+              <span>Email</span>
+              <input id="pr-email" type="text" placeholder="email@..." />
+            </div>
+            <div class="field-row">
+              <span>Telegram</span>
+              <input id="pr-telegram" type="text" placeholder="https://t.me/..." />
+            </div>
+            <div class="field-row">
+              <span>LinkedIn</span>
+              <input id="pr-linkedin" type="text" />
+            </div>
+            <div class="field-row">
+              <span>GitHub</span>
+              <input id="pr-github" type="text" />
+            </div>
+            <div class="field-row">
+              <span>Website</span>
+              <input id="pr-website" type="text" />
+            </div>
+            <div class="field-row">
+              <span>Tug‘ilgan kun</span>
+              <input id="pr-birthday" type="date" />
+            </div>
+          </div>
+        </details>
+
+        <!-- 2. Status -->
+        <details class="profile-section" open>
+          <summary>
+            <span><i class="fa fa-briefcase" style="margin-right: 8px; color: #ff6b81"></i>Kasb / shahar</span>
+          </summary>
+          <div class="section-body">
+            <p class="hint">Tillar: UZ avtomatik asosiy. RU/EN ixtiyoriy.</p>
+
+            <div class="lang-tabs" id="status-lang-tabs">
+              <button type="button" data-lang="uz" class="active">UZ</button>
+              <button type="button" data-lang="ru">RU</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+
+            <div class="lang-panel" data-panel="uz" data-group="status">
+              <div class="field-row"><span>Shahar</span><input id="pr-city-uz" type="text" /></div>
+              <div class="field-row"><span>Daraja</span><input id="pr-degree-uz" type="text" /></div>
+              <div class="field-row"><span>Freelance</span><input id="pr-free-uz" type="text" placeholder="Mavjud" /></div>
+              <div class="field-row"><span>Kasb</span><input id="pr-role-uz" type="text" placeholder="Frontend dasturchi" /></div>
+            </div>
+            <div class="lang-panel" data-panel="ru" data-group="status" hidden>
+              <div class="field-row"><span>Город</span><input id="pr-city-ru" type="text" /></div>
+              <div class="field-row"><span>Степень</span><input id="pr-degree-ru" type="text" /></div>
+              <div class="field-row"><span>Freelance</span><input id="pr-free-ru" type="text" /></div>
+              <div class="field-row"><span>Роль</span><input id="pr-role-ru" type="text" /></div>
+            </div>
+            <div class="lang-panel" data-panel="en" data-group="status" hidden>
+              <div class="field-row"><span>City</span><input id="pr-city-en" type="text" /></div>
+              <div class="field-row"><span>Degree</span><input id="pr-degree-en" type="text" /></div>
+              <div class="field-row"><span>Freelance</span><input id="pr-free-en" type="text" /></div>
+              <div class="field-row"><span>Role</span><input id="pr-role-en" type="text" /></div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 3. Bio -->
+        <details class="profile-section">
+          <summary>
+            <span><i class="fa fa-align-left" style="margin-right: 8px; color: #ff6b81"></i>Bio matnlar</span>
+          </summary>
+          <div class="section-body">
+            <p class="hint">Home va About matnlari. Bo‘sh qoldirish mumkin — saytda eski i18n qoladi.</p>
+
+            <div class="lang-tabs" id="bio-lang-tabs">
+              <button type="button" data-lang="uz" class="active">UZ</button>
+              <button type="button" data-lang="ru">RU</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+
+            <div class="lang-panel" data-panel="uz" data-group="bio">
+              <div class="field-row"><span>Home bio</span><textarea id="pr-home-uz" rows="3"></textarea></div>
+              <div class="field-row"><span>About 1</span><textarea id="pr-a1-uz" rows="3"></textarea></div>
+              <div class="field-row"><span>About 2</span><textarea id="pr-a2-uz" rows="3"></textarea></div>
+            </div>
+            <div class="lang-panel" data-panel="ru" data-group="bio" hidden>
+              <div class="field-row"><span>Home bio</span><textarea id="pr-home-ru" rows="3"></textarea></div>
+              <div class="field-row"><span>About 1</span><textarea id="pr-a1-ru" rows="3"></textarea></div>
+              <div class="field-row"><span>About 2</span><textarea id="pr-a2-ru" rows="3"></textarea></div>
+            </div>
+            <div class="lang-panel" data-panel="en" data-group="bio" hidden>
+              <div class="field-row"><span>Home bio</span><textarea id="pr-home-en" rows="3"></textarea></div>
+              <div class="field-row"><span>About 1</span><textarea id="pr-a1-en" rows="3"></textarea></div>
+              <div class="field-row"><span>About 2</span><textarea id="pr-a2-en" rows="3"></textarea></div>
+            </div>
+          </div>
+        </details>
+
+        <div class="sticky-actions">
+          <span id="profile-msg" class="msg"></span>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const { $, toast, requireAuth, mountShell } = AdminUI;
+        const session = requireAuth();
+        if (!session) return;
+        mountShell("profile", session);
+
+        const set = (id, v) => {
+          const el = $(id);
+          if (el) el.value = v || "";
+        };
+        const val = (id) => (($(id) && $(id).value) || "").trim();
+
+        function bindLangTabs(tabsId, group) {
+          document.querySelectorAll("#" + tabsId + " button").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              document
+                .querySelectorAll("#" + tabsId + " button")
+                .forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              document
+                .querySelectorAll('.lang-panel[data-group="' + group + '"]')
+                .forEach((p) => {
+                  p.hidden = p.dataset.panel !== btn.dataset.lang;
+                });
+            });
+          });
+        }
+        bindLangTabs("status-lang-tabs", "status");
+        bindLangTabs("bio-lang-tabs", "bio");
+
+        const data = await cmsStore.load();
+        const p = data.profile || {};
+
+        set("#pr-name", p.full_name);
+        set("#pr-phone", p.phone);
+        set("#pr-email", p.email);
+        set("#pr-telegram", p.telegram);
+        set("#pr-linkedin", p.linkedin);
+        set("#pr-github", p.github);
+        set("#pr-website", p.website);
+        set("#pr-birthday", p.birthday);
+        set("#pr-city-uz", p.city_uz);
+        set("#pr-city-ru", p.city_ru);
+        set("#pr-city-en", p.city_en);
+        set("#pr-degree-uz", p.degree_uz);
+        set("#pr-degree-ru", p.degree_ru);
+        set("#pr-degree-en", p.degree_en);
+        set("#pr-free-uz", p.freelance_uz);
+        set("#pr-free-ru", p.freelance_ru);
+        set("#pr-free-en", p.freelance_en);
+        set("#pr-role-uz", p.role_uz);
+        set("#pr-role-ru", p.role_ru);
+        set("#pr-role-en", p.role_en);
+        set("#pr-home-uz", p.home_bio_uz);
+        set("#pr-home-ru", p.home_bio_ru);
+        set("#pr-home-en", p.home_bio_en);
+        set("#pr-a1-uz", p.about_p1_uz);
+        set("#pr-a1-ru", p.about_p1_ru);
+        set("#pr-a1-en", p.about_p1_en);
+        set("#pr-a2-uz", p.about_p2_uz);
+        set("#pr-a2-ru", p.about_p2_ru);
+        set("#pr-a2-en", p.about_p2_en);
+
+        $("#profile-form").addEventListener("submit", (e) => {
+          e.preventDefault();
+          cmsStore.saveProfile({
+            id: 1,
+            full_name: val("#pr-name"),
+            phone: val("#pr-phone"),
+            email: val("#pr-email"),
+            telegram: val("#pr-telegram"),
+            linkedin: val("#pr-linkedin"),
+            github: val("#pr-github"),
+            website: val("#pr-website"),
+            birthday: val("#pr-birthday") || null,
+            city_uz: val("#pr-city-uz"),
+            city_ru: val("#pr-city-ru"),
+            city_en: val("#pr-city-en"),
+            degree_uz: val("#pr-degree-uz"),
+            degree_ru: val("#pr-degree-ru"),
+            degree_en: val("#pr-degree-en"),
+            freelance_uz: val("#pr-free-uz"),
+            freelance_ru: val("#pr-free-ru"),
+            freelance_en: val("#pr-free-en"),
+            role_uz: val("#pr-role-uz"),
+            role_ru: val("#pr-role-ru"),
+            role_en: val("#pr-role-en"),
+            home_bio_uz: val("#pr-home-uz"),
+            home_bio_ru: val("#pr-home-ru"),
+            home_bio_en: val("#pr-home-en"),
+            about_p1_uz: val("#pr-a1-uz"),
+            about_p1_ru: val("#pr-a1-ru"),
+            about_p1_en: val("#pr-a1-en"),
+            about_p2_uz: val("#pr-a2-uz"),
+            about_p2_ru: val("#pr-a2-ru"),
+            about_p2_en: val("#pr-a2-en"),
+          });
+          const msg = $("#profile-msg");
+          msg.textContent = "Saqlandi ✓";
+          msg.className = "msg ok";
+          toast("Profil saqlandi");
+        });
+      })();
+    </script>
+  </body>
+</html>

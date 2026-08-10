@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — Admin CMS</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <header class="topbar">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Portfolio kontentini shu yerdan boshqarasiz</p>
+        </div>
+        <div class="topbar-meta">
+          <span class="chip" id="user-chip">admin</span>
+        </div>
+      </header>
+
+      <div class="banner">
+        <strong>Lokal CMS ishlayapti.</strong>
+        O‘zgarishlar shu brauzerda saqlanadi. Production uchun
+        <a href="tools.html">Vositalar → JSON eksport</a>.
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span>Loyihalar</span>
+          <strong id="stat-projects">0</strong>
+        </div>
+        <div class="stat">
+          <span>Blog</span>
+          <strong id="stat-posts">0</strong>
+        </div>
+        <div class="stat">
+          <span>Holat</span>
+          <strong id="stat-status">OK</strong>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Tezkor havolalar</h3>
+          <div class="toolbar">
+            <a class="btn btn-primary" href="projects.html"><i class="fa fa-briefcase"></i> Portfolio</a>
+            <a class="btn btn-ghost" href="blog.html"><i class="fa fa-pen"></i> Blog</a>
+            <a class="btn btn-ghost" href="profile.html"><i class="fa fa-user"></i> Profil</a>
+            <a class="btn btn-ghost" href="tools.html"><i class="fa fa-wrench"></i> Vositalar</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Qanday ishlatish</h3>
+          <ol class="howto">
+            <li>Portfolio / Blog / Profil bo‘limiga o‘ting</li>
+            <li>Yangi yozuv qo‘shing yoki tahrirlang → Saqlash</li>
+            <li>Asosiy saytni shu brauzerda yangilang</li>
+            <li>Production: JSON eksport → <code>data/cms.json</code> → deploy</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const session = AdminUI.requireAuth();
+        if (!session) return;
+        AdminUI.mountShell("dashboard", session);
+        document.getElementById("user-chip").textContent = session.email || "admin";
+        const data = await cmsStore.load();
+        document.getElementById("stat-projects").textContent = (data.projects || []).length;
+        document.getElementById("stat-posts").textContent = (data.posts || []).length;
+      })();
+    </script>
+  </body>
+</html>

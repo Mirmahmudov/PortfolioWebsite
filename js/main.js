@@ -287,10 +287,11 @@ const contactForm = document.querySelector("#contact-form");
 if (contactForm) {
   const status = contactForm.querySelector(".form-status");
   const submitBtn = contactForm.querySelector("button[type='submit']");
-  const submitLabel = submitBtn.querySelector("span");
+  const submitLabel = submitBtn ? submitBtn.querySelector("span") : null;
 
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (!status || !submitBtn) return;
 
     const formData = new FormData(contactForm);
     const payload = {

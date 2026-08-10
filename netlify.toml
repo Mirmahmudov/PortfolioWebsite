@@ -12,3 +12,13 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# /admin → /admin/ (login)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+  force = true
+
+# Admin ichki sahifalar SPA emas — to‘g‘ridan-to‘g‘ri HTML
+# (dashboard.html, projects.html, ...)

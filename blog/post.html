@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Asadbek Mirmahmudov</title>
+    <meta name="author" content="Asadbek Mirmahmudov" />
+    <meta name="theme-color" content="#ec1839" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23ec1839'/%3E%3Ctext x='50' y='72' font-family='Georgia,serif' font-size='64' font-weight='bold' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/motion.css" />
+    <link rel="stylesheet" href="../css/style-switcher.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/skins/color-1.css"
+      class="alternate-style"
+      title="color-1"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/skins/color-2.css"
+      class="alternate-style"
+      title="color-2"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="../css/skins/color-3.css"
+      class="alternate-style"
+      title="color-3"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="../css/skins/color-4.css"
+      class="alternate-style"
+      title="color-4"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      href="../css/skins/color-5.css"
+      class="alternate-style"
+      title="color-5"
+      disabled
+    />
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          if (!theme) {
+            theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          }
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+          var color = localStorage.getItem("skin-color") || "color-1";
+          var links = document.querySelectorAll("link.alternate-style");
+          for (var i = 0; i < links.length; i++) {
+            if (links[i].getAttribute("title") === color) {
+              links[i].removeAttribute("disabled");
+            } else {
+              links[i].setAttribute("disabled", "true");
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="blog-post-page is-ready">
+    <div class="blog-post-shell">
+      <header class="blog-post-top">
+        <a href="../index.html#blog" class="blog-back">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          <span data-i18n="blog.back">Back to blog</span>
+        </a>
+        <div class="lang-switcher blog-post-lang" role="group" aria-label="Language">
+          <button type="button" data-lang="uz">UZ</button>
+          <button type="button" data-lang="ru">RU</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+      </header>
+
+      <article class="blog-post-article" id="blog-post">
+        <div class="blog-post-meta">
+          <span class="blog-tag" id="post-tag">—</span>
+          <time id="post-date">—</time>
+        </div>
+        <h1 id="post-title">—</h1>
+        <p class="blog-post-lead" id="post-excerpt"></p>
+        <div class="blog-post-body" id="post-body"></div>
+      </article>
+
+      <footer class="blog-post-footer">
+        <a href="../index.html#blog" class="btn blog-back-btn">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          <span data-i18n="blog.back">Back to blog</span>
+        </a>
+        <a href="../index.html#contact" class="btn btn-ghost">
+          <span data-i18n="nav.contact">Contact</span>
+        </a>
+      </footer>
+    </div>
+
+    <div class="style-switcher">
+      <button
+        class="style-switcher-toggler s-icon"
+        type="button"
+        data-i18n-aria-label="switcher.toggleColors"
+        aria-label="Toggle colour picker"
+      >
+        <i class="fas fa-cog fa-spin" aria-hidden="true"></i>
+      </button>
+      <button
+        class="day-night s-icon"
+        type="button"
+        data-i18n-aria-label="switcher.toDark"
+        aria-label="Switch to dark mode"
+      >
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      <h4 data-i18n="switcher.themeColors">Theme Colors</h4>
+      <div class="colors">
+        <button type="button" class="color-1" data-color="color-1" aria-label="Red"></button>
+        <button type="button" class="color-2" data-color="color-2" aria-label="Orange"></button>
+        <button type="button" class="color-3" data-color="color-3" aria-label="Green"></button>
+        <button type="button" class="color-4" data-color="color-4" aria-label="Blue"></button>
+        <button type="button" class="color-5" data-color="color-5" aria-label="Pink"></button>
+      </div>
+    </div>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/cms-core.js"></script>
+    <script src="../js/style-switcher.js"></script>
+    <script src="../js/blog-post.js"></script>
+  </body>
+</html>

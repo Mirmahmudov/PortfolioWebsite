@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kirish — Admin CMS</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <script>
+      (function () {
+        if (/\/admin$/.test(location.pathname)) {
+          location.replace(location.pathname + "/" + location.search + location.hash);
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="login-page">
+    <form id="login-form" class="login-card" novalidate>
+      <div class="login-brand">
+        <span class="login-logo">A</span>
+        <h1>Portfolio Admin</h1>
+        <p>Kontentni boshqarish paneli</p>
+      </div>
+
+      <label>
+        Login
+        <input id="login-email" type="text" value="admin" autocomplete="username" spellcheck="false" />
+      </label>
+      <label>
+        Parol
+        <input id="login-password" type="password" value="admin123" autocomplete="current-password" />
+      </label>
+
+      <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+        <i class="fa fa-right-to-bracket"></i> Kirish
+      </button>
+      <button type="button" class="btn btn-ghost btn-block" id="quick-login-btn">
+        <i class="fa fa-bolt"></i> Tezkor kirish
+      </button>
+
+      <p class="login-hint">
+        Login: <code>admin</code> · Parol: <code>admin123</code>
+        <small>Lokal CMS — Supabase shart emas. Production uchun JSON eksport qiling.</small>
+      </p>
+      <p id="login-error" class="form-error" hidden></p>
+    </form>
+
+    <script src="../js/cms-core.js"></script>
+    <script>
+      (function () {
+        if (window.cmsAuth && cmsAuth.session()) {
+          location.replace("dashboard.html");
+          return;
+        }
+
+        const form = document.getElementById("login-form");
+        const err = document.getElementById("login-error");
+        const btn = document.getElementById("login-btn");
+
+        async function go(login, password) {
+          err.hidden = true;
+          if (!window.cmsAuth) {
+            err.hidden = false;
+            err.textContent = "CMS yadrosi yuklanmadi";
+            return;
+          }
+          const session = cmsAuth.login(login, password);
+          if (!session) {
+            err.hidden = false;
+            err.textContent = "Login yoki parol xato. admin / admin123";
+            return;
+          }
+          // seed tayyorlash
+          if (window.cmsStore) await cmsStore.ensureSeeded(false);
+          location.href = "dashboard.html";
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          btn.disabled = true;
+          try {
+            await go(
+              document.getElementById("login-email").value,
+              document.getElementById("login-password").value
+            );
+          } finally {
+            btn.disabled = false;
+          }
+        });
+
+        document.getElementById("quick-login-btn").addEventListener("click", () => {
+          go("admin", "admin123");
+        });
+      })();
+    </script>
+  </body>
+</html>

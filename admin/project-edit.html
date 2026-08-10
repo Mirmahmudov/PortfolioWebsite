@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loyiha tahrirlash — Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <a class="page-back" href="projects.html">
+        <i class="fa fa-arrow-left"></i> Portfolio ro‘yxatiga
+      </a>
+
+      <header class="topbar">
+        <div>
+          <h1 id="page-title">Yangi loyiha</h1>
+          <p>Alohida tahrirlash sahifasi</p>
+        </div>
+      </header>
+
+      <form id="project-form" class="edit-layout">
+        <input type="hidden" id="p-id" />
+
+        <div class="edit-columns">
+          <section class="edit-card">
+            <h2>Asosiy</h2>
+            <p class="sub">Slug, tartib, havolalar va holat</p>
+            <div class="form-grid">
+              <label>Slug<input id="p-slug" type="text" placeholder="mixel-uz" /></label>
+              <label>Tartib<input id="p-sort" type="number" value="0" /></label>
+              <label>GitHub URL<input id="p-github" type="text" placeholder="https://github.com/..." /></label>
+              <label>Live URL<input id="p-live" type="text" placeholder="https://..." /></label>
+              <label>Tech (vergul bilan)<input id="p-tech" type="text" placeholder="React, CSS, API" /></label>
+              <label>Rasm URL<input id="p-image" type="text" placeholder="./images/portfolio/..." /></label>
+            </div>
+            <label style="margin-top: 12px">
+              Yoki rasm yuklash
+              <input id="p-image-file" type="file" accept="image/*" />
+            </label>
+            <div id="p-image-preview" class="img-preview" hidden style="margin-top: 10px"></div>
+            <div class="checks" style="margin-top: 14px">
+              <label><input type="checkbox" id="p-private" /> Private</label>
+              <label><input type="checkbox" id="p-featured" /> Featured</label>
+              <label><input type="checkbox" id="p-published" checked /> Published</label>
+            </div>
+          </section>
+
+          <section class="edit-card">
+            <h2>Matnlar (tillar)</h2>
+            <p class="sub">Har til uchun alohida maydon</p>
+            <div class="lang-tabs" id="lang-tabs">
+              <button type="button" data-lang="uz" class="active">UZ</button>
+              <button type="button" data-lang="ru">RU</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+
+            <div class="lang-panel" data-panel="uz">
+              <label>
+                Title UZ
+                <input id="p-title-uz" type="text" required placeholder="Loyiha nomi" />
+              </label>
+              <label style="margin-top: 10px">
+                Desc UZ
+                <textarea id="p-desc-uz" rows="8" placeholder="Qisqa tavsif"></textarea>
+              </label>
+            </div>
+            <div class="lang-panel" data-panel="ru" hidden>
+              <label>
+                Title RU
+                <input id="p-title-ru" type="text" />
+              </label>
+              <label style="margin-top: 10px">
+                Desc RU
+                <textarea id="p-desc-ru" rows="8"></textarea>
+              </label>
+            </div>
+            <div class="lang-panel" data-panel="en" hidden>
+              <label>
+                Title EN
+                <input id="p-title-en" type="text" />
+              </label>
+              <label style="margin-top: 10px">
+                Desc EN
+                <textarea id="p-desc-en" rows="8"></textarea>
+              </label>
+            </div>
+          </section>
+        </div>
+
+        <div class="sticky-actions">
+          <span id="project-msg" class="msg"></span>
+          <a class="btn btn-ghost" href="projects.html">Bekor</a>
+          <button type="submit" class="btn btn-primary" id="save-btn">
+            <i class="fa fa-check"></i> Saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const {
+          $,
+          toast,
+          requireAuth,
+          mountShell,
+          slugify,
+          techToArray,
+          uid,
+          escapeHtml,
+          resolveAssetUrl,
+          normalizeSaveImageUrl,
+        } = AdminUI;
+        const session = requireAuth();
+        if (!session) return;
+        mountShell("projects", session);
+
+        const params = new URLSearchParams(location.search);
+        const editId = params.get("id");
+        const data = await cmsStore.load();
+        const list = data.projects || [];
+        const item = editId ? list.find((x) => String(x.id) === String(editId)) : null;
+
+        if (editId && !item) {
+          toast("Loyiha topilmadi", false);
+          setTimeout(() => (location.href = "projects.html"), 800);
+          return;
+        }
+
+        const titleEl = document.getElementById("page-title");
+        if (titleEl) titleEl.textContent = item ? "Loyihani tahrirlash" : "Yangi loyiha";
+        document.title = (item ? "Tahrirlash" : "Yangi") + " — Portfolio Admin";
+
+        function setVal(id, value) {
+          const el = $(id);
+          if (el) el.value = value ?? "";
+        }
+        function setCheck(id, on) {
+          const el = $(id);
+          if (el) el.checked = !!on;
+        }
+
+        setVal("#p-id", item?.id || "");
+        setVal("#p-slug", item?.slug || "");
+        setVal("#p-sort", item?.sort_order ?? list.length + 1);
+        setVal("#p-title-uz", item?.title_uz || "");
+        setVal("#p-title-ru", item?.title_ru || "");
+        setVal("#p-title-en", item?.title_en || "");
+        setVal("#p-desc-uz", item?.desc_uz || "");
+        setVal("#p-desc-ru", item?.desc_ru || "");
+        setVal("#p-desc-en", item?.desc_en || "");
+        setVal("#p-tech", Array.isArray(item?.tech) ? item.tech.join(", ") : "");
+        setVal("#p-github", item?.github_url || "");
+        setVal("#p-live", item?.live_url || "");
+        setVal("#p-image", item?.image_url || "");
+        setCheck("#p-private", item?.is_private);
+        setCheck("#p-featured", item?.is_featured);
+        setCheck("#p-published", item ? item.published : true);
+
+        function preview(url) {
+          const box = $("#p-image-preview");
+          if (!box) return;
+          if (!url) {
+            box.hidden = true;
+            box.innerHTML = "";
+            return;
+          }
+          box.hidden = false;
+          box.innerHTML = `<img src="${escapeHtml(resolveAssetUrl(url))}" alt="" />`;
+        }
+        preview(item?.image_url);
+
+        // lang tabs
+        document.querySelectorAll("#lang-tabs button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll("#lang-tabs button").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.querySelectorAll(".lang-panel").forEach((p) => {
+              p.hidden = p.dataset.panel !== btn.dataset.lang;
+            });
+          });
+        });
+
+        $("#p-image-file").addEventListener("change", (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
+            $("#p-image").value = String(reader.result || "");
+            preview($("#p-image").value);
+          };
+          reader.readAsDataURL(file);
+        });
+
+        const form = $("#project-form");
+        if (!form) return;
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const g = (id) => (($(id) && $(id).value) || "").trim();
+          const id = g("#p-id") || null;
+          const payload = {
+            slug: g("#p-slug") || slugify(g("#p-title-uz")),
+            sort_order: Number(g("#p-sort")) || 0,
+            title_uz: g("#p-title-uz"),
+            title_ru: g("#p-title-ru"),
+            title_en: g("#p-title-en"),
+            desc_uz: g("#p-desc-uz"),
+            desc_ru: g("#p-desc-ru"),
+            desc_en: g("#p-desc-en"),
+            tech: techToArray(g("#p-tech")),
+            github_url: g("#p-github") || null,
+            live_url: g("#p-live") || null,
+            image_url: normalizeSaveImageUrl(g("#p-image")),
+            is_private: !!$("#p-private")?.checked,
+            is_featured: !!$("#p-featured")?.checked,
+            published: !!$("#p-published")?.checked,
+          };
+          if (!payload.title_uz) {
+            const msg = $("#project-msg");
+            if (msg) {
+              msg.textContent = "Title UZ majburiy";
+              msg.className = "msg err";
+            }
+            return;
+          }
+
+          const next = [...(cmsStore.read().projects || [])];
+          if (id) {
+            const i = next.findIndex((x) => String(x.id) === String(id));
+            if (i >= 0) next[i] = { ...next[i], ...payload, id };
+            else next.push({ ...payload, id });
+          } else {
+            next.push({ ...payload, id: uid(), created_at: new Date().toISOString() });
+          }
+          cmsStore.saveProjects(next);
+          toast("Saqlandi ✓");
+          setTimeout(() => (location.href = "projects.html"), 400);
+        });
+      })();
+    </script>
+  </body>
+</html>

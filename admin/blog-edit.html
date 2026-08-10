@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maqola tahrirlash — Admin</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <a class="page-back" href="blog.html">
+        <i class="fa fa-arrow-left"></i> Blog ro‘yxatiga
+      </a>
+
+      <header class="topbar">
+        <div>
+          <h1 id="page-title">Yangi maqola</h1>
+          <p>Alohida tahrirlash sahifasi</p>
+        </div>
+      </header>
+
+      <form id="post-form" class="edit-layout">
+        <input type="hidden" id="b-id" />
+
+        <div class="edit-columns">
+          <section class="edit-card">
+            <h2>Asosiy</h2>
+            <p class="sub">Slug, sana, holat</p>
+            <div class="form-grid">
+              <label>Slug<input id="b-slug" type="text" required placeholder="react-structure" /></label>
+              <label>Sana<input id="b-date" type="date" /></label>
+              <label>Tartib<input id="b-sort" type="number" value="0" /></label>
+              <div class="checks" style="padding-top: 28px; margin: 0">
+                <label><input type="checkbox" id="b-published" checked /> Published</label>
+              </div>
+            </div>
+          </section>
+
+          <section class="edit-card">
+            <h2>Matnlar (tillar)</h2>
+            <p class="sub">UZ / RU / EN — tab orqali</p>
+            <div class="lang-tabs" id="lang-tabs">
+              <button type="button" data-lang="uz" class="active">UZ</button>
+              <button type="button" data-lang="ru">RU</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+
+            <div class="lang-panel" data-panel="uz">
+              <div class="form-grid">
+                <label>Tag UZ<input id="b-tag-uz" type="text" /></label>
+                <label>Title UZ<input id="b-title-uz" type="text" required /></label>
+              </div>
+              <label style="margin-top: 10px">Excerpt UZ<textarea id="b-excerpt-uz" rows="2"></textarea></label>
+              <label style="margin-top: 10px">Body UZ<textarea id="b-body-uz" rows="10"></textarea></label>
+            </div>
+            <div class="lang-panel" data-panel="ru" hidden>
+              <div class="form-grid">
+                <label>Tag RU<input id="b-tag-ru" type="text" /></label>
+                <label>Title RU<input id="b-title-ru" type="text" /></label>
+              </div>
+              <label style="margin-top: 10px">Excerpt RU<textarea id="b-excerpt-ru" rows="2"></textarea></label>
+              <label style="margin-top: 10px">Body RU<textarea id="b-body-ru" rows="10"></textarea></label>
+            </div>
+            <div class="lang-panel" data-panel="en" hidden>
+              <div class="form-grid">
+                <label>Tag EN<input id="b-tag-en" type="text" /></label>
+                <label>Title EN<input id="b-title-en" type="text" /></label>
+              </div>
+              <label style="margin-top: 10px">Excerpt EN<textarea id="b-excerpt-en" rows="2"></textarea></label>
+              <label style="margin-top: 10px">Body EN<textarea id="b-body-en" rows="10"></textarea></label>
+            </div>
+          </section>
+        </div>
+
+        <div class="sticky-actions">
+          <span id="post-msg" class="msg"></span>
+          <a class="btn btn-ghost" href="blog.html">Bekor</a>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Saqlash
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const { $, toast, requireAuth, mountShell, slugify, uid } = AdminUI;
+        const session = requireAuth();
+        if (!session) return;
+        mountShell("blog", session);
+
+        const params = new URLSearchParams(location.search);
+        const editId = params.get("id");
+        const data = await cmsStore.load();
+        const list = data.posts || [];
+        const item = editId ? list.find((x) => String(x.id) === String(editId)) : null;
+
+        if (editId && !item) {
+          toast("Maqola topilmadi", false);
+          setTimeout(() => (location.href = "blog.html"), 800);
+          return;
+        }
+
+        $("#page-title").textContent = item ? "Maqolani tahrirlash" : "Yangi maqola";
+        document.title = (item ? "Tahrirlash" : "Yangi") + " — Blog Admin";
+
+        $("#b-id").value = item?.id || "";
+        $("#b-slug").value = item?.slug || "";
+        $("#b-date").value = item?.published_at || new Date().toISOString().slice(0, 10);
+        $("#b-sort").value = item?.sort_order ?? 0;
+        $("#b-tag-uz").value = item?.tag_uz || "";
+        $("#b-tag-ru").value = item?.tag_ru || "";
+        $("#b-tag-en").value = item?.tag_en || "";
+        $("#b-title-uz").value = item?.title_uz || "";
+        $("#b-title-ru").value = item?.title_ru || "";
+        $("#b-title-en").value = item?.title_en || "";
+        $("#b-excerpt-uz").value = item?.excerpt_uz || "";
+        $("#b-excerpt-ru").value = item?.excerpt_ru || "";
+        $("#b-excerpt-en").value = item?.excerpt_en || "";
+        $("#b-body-uz").value = item?.body_uz || "";
+        $("#b-body-ru").value = item?.body_ru || "";
+        $("#b-body-en").value = item?.body_en || "";
+        $("#b-published").checked = item ? !!item.published : true;
+
+        document.querySelectorAll("#lang-tabs button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll("#lang-tabs button").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.querySelectorAll(".lang-panel").forEach((p) => {
+              p.hidden = p.dataset.panel !== btn.dataset.lang;
+            });
+          });
+        });
+
+        $("#post-form").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const id = $("#b-id").value || null;
+          const payload = {
+            slug:
+              $("#b-slug").value.trim() ||
+              slugify($("#b-title-uz").value) ||
+              "post-" + Date.now(),
+            sort_order: Number($("#b-sort").value) || 0,
+            published_at: $("#b-date").value || null,
+            tag_uz: $("#b-tag-uz").value.trim(),
+            tag_ru: $("#b-tag-ru").value.trim(),
+            tag_en: $("#b-tag-en").value.trim(),
+            title_uz: $("#b-title-uz").value.trim(),
+            title_ru: $("#b-title-ru").value.trim(),
+            title_en: $("#b-title-en").value.trim(),
+            excerpt_uz: $("#b-excerpt-uz").value.trim(),
+            excerpt_ru: $("#b-excerpt-ru").value.trim(),
+            excerpt_en: $("#b-excerpt-en").value.trim(),
+            body_uz: $("#b-body-uz").value.trim(),
+            body_ru: $("#b-body-ru").value.trim(),
+            body_en: $("#b-body-en").value.trim(),
+            published: $("#b-published").checked,
+          };
+          if (!payload.title_uz) {
+            $("#post-msg").textContent = "Title UZ majburiy";
+            $("#post-msg").className = "msg err";
+            return;
+          }
+
+          const next = [...(cmsStore.read().posts || [])];
+          if (id) {
+            const i = next.findIndex((x) => String(x.id) === String(id));
+            if (i >= 0) next[i] = { ...next[i], ...payload, id };
+            else next.push({ ...payload, id });
+          } else {
+            next.unshift({ ...payload, id: uid() });
+          }
+          cmsStore.savePosts(next);
+          toast("Saqlandi ✓");
+          setTimeout(() => (location.href = "blog.html"), 400);
+        });
+      })();
+    </script>
+  </body>
+</html>

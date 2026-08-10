@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vositalar — Admin CMS</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app-root"></div>
+    <div id="page-content" hidden>
+      <header class="topbar">
+        <div>
+          <h1>Vositalar</h1>
+          <p>Eksport, import va seed tiklash — production uchun</p>
+        </div>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>JSON eksport</h3>
+          <p style="color: var(--muted); margin: 0 0 14px; font-size: 0.9rem">
+            Hozirgi CMS ma’lumotini <code>cms.json</code> qilib yuklab oling. Productionda
+            <code>data/cms.json</code> ni shu fayl bilan almashtiring.
+          </p>
+          <button type="button" class="btn btn-primary" id="export-btn">
+            <i class="fa fa-download"></i> Yuklab olish
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>JSON import</h3>
+          <p style="color: var(--muted); margin: 0 0 14px; font-size: 0.9rem">
+            Oldin eksport qilingan faylni yuklang — barcha loyiha/blog/profil yangilanadi.
+          </p>
+          <button type="button" class="btn btn-ghost" id="import-btn">
+            <i class="fa fa-upload"></i> Fayl tanlash
+          </button>
+          <input id="import-file" type="file" accept="application/json,.json" hidden />
+        </div>
+
+        <div class="card">
+          <h3>Seed tiklash</h3>
+          <p style="color: var(--muted); margin: 0 0 14px; font-size: 0.9rem">
+            Barcha ma’lumotni boshlang‘ich <code>data/cms.json</code> holatiga qaytaradi.
+          </p>
+          <button type="button" class="btn btn-danger" id="reset-btn">
+            <i class="fa fa-rotate-left"></i> Seed tiklash
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>Production checklist</h3>
+          <ol class="howto">
+            <li>Admin da kontentni tayyorlang</li>
+            <li>JSON eksport qiling</li>
+            <li><code>data/cms.json</code> ni almashtiring</li>
+            <li>Netlify env: Telegram token + chat id</li>
+            <li>Deploy qiling</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/cms-core.js"></script>
+    <script src="admin-shell.js"></script>
+    <script>
+      (async function () {
+        const { toast, requireAuth, mountShell } = AdminUI;
+        const session = requireAuth();
+        if (!session) return;
+        mountShell("tools", session);
+
+        document.getElementById("export-btn").addEventListener("click", () => {
+          const blob = new Blob([cmsStore.exportJson()], { type: "application/json" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "cms.json";
+          a.click();
+          URL.revokeObjectURL(a.href);
+          toast("cms.json yuklab olindi");
+        });
+
+        const fileInput = document.getElementById("import-file");
+        document.getElementById("import-btn").addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          try {
+            cmsStore.importJson(await file.text());
+            toast("Import muvaffaqiyatli");
+          } catch (err) {
+            toast(err.message || "Import xato", false);
+          }
+          e.target.value = "";
+        });
+
+        document.getElementById("reset-btn").addEventListener("click", async () => {
+          if (!confirm("Barcha CMS ma’lumot seed holatiga qaytadi. Davom?")) return;
+          await cmsStore.resetToSeed();
+          toast("Seed tiklandi");
+        });
+      })();
+    </script>
+  </body>
+</html>

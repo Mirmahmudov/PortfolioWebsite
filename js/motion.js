@@ -11,15 +11,21 @@ const prefersReduced =
 
 const REVEAL_SELECTORS = [
   ".section-title",
+  ".section-head",
+  ".portfolio-head",
+  ".blog-head",
   ".about-text",
   ".personal-info",
   ".skills .skill-item",
   ".timeline-item",
   ".service-item",
   ".portfolio-item",
-  ".contact-info-item",
-  ".contact-form",
-  ".portfolio-heading",
+  ".blog-card",
+  ".contact-intro",
+  ".contact-aside",
+  ".contact-main",
+  ".contact-card",
+  ".section-lead",
 ].join(", ");
 
 function prepareReveals(root) {

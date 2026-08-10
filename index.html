@@ -173,6 +173,12 @@
               </a>
             </li>
             <li>
+              <a href="#blog">
+                <i class="fa fa-pen" aria-hidden="true"></i>
+                <span data-i18n="nav.blog">Blog</span>
+              </a>
+            </li>
+            <li>
               <a href="#contact">
                 <i class="fa fa-comments" aria-hidden="true"></i>
                 <span data-i18n="nav.contact">Contact</span>
@@ -226,9 +232,9 @@
             <span class="orb orb-3"></span>
             <span class="grid-fade"></span>
           </div>
-          <div class="container">
-            <div class="row">
-              <div class="home-info padd-15 reveal" data-reveal>
+          <div class="section-shell home-shell">
+            <div class="home-layout">
+              <div class="home-info reveal" data-reveal>
                 <h3 class="hello">
                   <span data-i18n="home.hello">Hello, my name is</span>
                   <span class="name" data-i18n="home.name"
@@ -259,7 +265,7 @@
                   >
                 </div>
               </div>
-              <div class="home-img padd-15 reveal" data-reveal data-reveal-delay="120">
+              <div class="home-img reveal" data-reveal data-reveal-delay="120">
                 <div class="home-img-frame">
                   <img
                     src="./images/hero.webp"
@@ -267,6 +273,8 @@
                     height="404"
                     data-i18n-alt="home.heroAlt"
                     alt="Portrait of Asadbek Mirmahmudov"
+                    decoding="async"
+                    fetchpriority="high"
                   />
                 </div>
               </div>
@@ -276,14 +284,11 @@
 
         <!-- About Section -->
         <section class="about section" id="about" tabindex="-1">
-          <div class="container">
-            <div class="row">
-              <div class="section-title padd-15">
-                <h2 data-i18n="about.title">About Me</h2>
-              </div>
-            </div>
-            <div class="row">
-              <div class="about-content padd-15">
+          <div class="section-shell">
+            <header class="section-head">
+              <h2 data-i18n="about.title">About Me</h2>
+            </header>
+            <div class="about-content">
                 <div class="row">
                   <div class="about-text padd-15">
                     <h3>
@@ -529,21 +534,18 @@
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </section>
 
         <!-- Services section -->
         <section class="service section" id="services" tabindex="-1">
-          <div class="container">
-            <div class="row">
-              <div class="section-title padd-15">
-                <h2 data-i18n="services.title">Services</h2>
-              </div>
-            </div>
-            <div class="row">
-              <div class="service-item padd-15">
+          <div class="section-shell">
+            <header class="section-head">
+              <h2 data-i18n="services.title">Services</h2>
+            </header>
+            <div class="service-grid">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-solid fa-globe" aria-hidden="true"></i>
@@ -552,7 +554,7 @@
                   <p data-i18n="services.web.desc"></p>
                 </div>
               </div>
-              <div class="service-item padd-15">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-brands fa-react" aria-hidden="true"></i>
@@ -561,7 +563,7 @@
                   <p data-i18n="services.spa.desc"></p>
                 </div>
               </div>
-              <div class="service-item padd-15">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-solid fa-mobile-screen" aria-hidden="true"></i>
@@ -570,7 +572,7 @@
                   <p data-i18n="services.ui.desc"></p>
                 </div>
               </div>
-              <div class="service-item padd-15">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-brands fa-square-js" aria-hidden="true"></i>
@@ -579,7 +581,7 @@
                   <p data-i18n="services.js.desc"></p>
                 </div>
               </div>
-              <div class="service-item padd-15">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-solid fa-code" aria-hidden="true"></i>
@@ -588,7 +590,7 @@
                   <p data-i18n="services.react.desc"></p>
                 </div>
               </div>
-              <div class="service-item padd-15">
+              <div class="service-item">
                 <div class="service-item-inner">
                   <div class="icon">
                     <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
@@ -601,22 +603,18 @@
           </div>
         </section>
 
-        <!-- Portfolio section -->
+        <!-- Portfolio section — to'liq o'ng panel -->
         <section class="portfolio section" id="portfolio" tabindex="-1">
-          <div class="container">
-            <div class="row">
-              <div class="section-title padd-15">
-                <h2 data-i18n="portfolio.title">Portfolio</h2>
-              </div>
-            </div>
-            <div class="row">
-              <div class="portfolio-heading padd-15">
-                <h2 data-i18n="portfolio.heading">My Projects</h2>
-              </div>
-            </div>
-            <div class="row">
+          <div class="portfolio-shell">
+            <header class="portfolio-head">
+              <h2 data-i18n="portfolio.title">Portfolio</h2>
+              <p class="section-lead" data-i18n="portfolio.heading">
+                My Projects
+              </p>
+            </header>
+            <div class="portfolio-grid">
               <!-- Featured: Codial Gamification V2 -->
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -646,7 +644,7 @@
               </article>
 
               <!-- Featured: Codial Gamification V1 (private — real client work) -->
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -674,7 +672,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -721,7 +719,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -767,7 +765,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -813,7 +811,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -859,7 +857,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -905,7 +903,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -951,7 +949,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -997,7 +995,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -1043,7 +1041,7 @@
                 </div>
               </article>
 
-              <article class="portfolio-item padd-15">
+              <article class="portfolio-item">
                 <div class="portfolio-item-inner shadow-dark">
                   <div class="portfolio-img">
                     <img
@@ -1092,156 +1090,275 @@
           </div>
         </section>
 
+        <!-- Blog Section — to'liq o'ng panel -->
+        <section class="blog section" id="blog" tabindex="-1">
+          <div class="blog-shell">
+            <header class="blog-head">
+              <h2 data-i18n="blog.title">Blog</h2>
+              <p class="section-lead" data-i18n="blog.lead">
+                Short notes from my work as a frontend developer and mentor.
+              </p>
+            </header>
+
+            <div class="blog-grid">
+              <article class="blog-card">
+                <div class="blog-card-meta">
+                  <span class="blog-tag" data-i18n="blog.b1.tag">Mentoring</span>
+                  <time datetime="2025-11-12" data-i18n="blog.b1.date"
+                    >12 Nov 2025</time
+                  >
+                </div>
+                <h3 data-i18n="blog.b1.title">
+                  What teaching frontend taught me
+                </h3>
+                <p class="blog-excerpt" data-i18n="blog.b1.excerpt"></p>
+                <a
+                  class="blog-read-link"
+                  href="./blog/post.html?id=b1"
+                  data-i18n="blog.readMore"
+                  >Read more</a
+                >
+              </article>
+
+              <article class="blog-card">
+                <div class="blog-card-meta">
+                  <span class="blog-tag" data-i18n="blog.b2.tag">Projects</span>
+                  <time datetime="2026-02-20" data-i18n="blog.b2.date"
+                    >20 Feb 2026</time
+                  >
+                </div>
+                <h3 data-i18n="blog.b2.title">
+                  Building a real gamification system
+                </h3>
+                <p class="blog-excerpt" data-i18n="blog.b2.excerpt"></p>
+                <a
+                  class="blog-read-link"
+                  href="./blog/post.html?id=b2"
+                  data-i18n="blog.readMore"
+                  >Read more</a
+                >
+              </article>
+
+              <article class="blog-card">
+                <div class="blog-card-meta">
+                  <span class="blog-tag" data-i18n="blog.b3.tag">React</span>
+                  <time datetime="2026-05-08" data-i18n="blog.b3.date"
+                    >8 May 2026</time
+                  >
+                </div>
+                <h3 data-i18n="blog.b3.title">
+                  How I structure React projects
+                </h3>
+                <p class="blog-excerpt" data-i18n="blog.b3.excerpt"></p>
+                <a
+                  class="blog-read-link"
+                  href="./blog/post.html?id=b3"
+                  data-i18n="blog.readMore"
+                  >Read more</a
+                >
+              </article>
+            </div>
+          </div>
+        </section>
+
         <!-- Contact Section -->
         <section class="contact section" id="contact" tabindex="-1">
-          <div class="container">
-            <div class="row">
-              <div class="section-title padd-15">
-                <h2 data-i18n="contact.title">Contact Me</h2>
-              </div>
-            </div>
-            <h3 class="contact-title padd-15" data-i18n="contact.q1"></h3>
-            <h4 class="contact-sub-title padd-15" data-i18n="contact.sub1"></h4>
-            <div class="row contact-info-row">
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa fa-phone" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.callMe">Call Me On</h4>
-                <p><a href="tel:+998913444468">+998 91 344 44 68</a></p>
-              </div>
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa fa-envelope" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.email">Email</h4>
-                <p>
-                  <a href="mailto:asadbekmirmahmudov3@gmail.com"
-                    >asadbekmirmahmudov3@gmail.com</a
-                  >
-                </p>
-              </div>
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa-brands fa-telegram" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.telegram">Telegram</h4>
-                <p>
-                  <a
-                    href="https://t.me/MirmahmudovAsadbek"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >@MirmahmudovAsadbek</a
-                  >
-                </p>
-              </div>
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.linkedin">LinkedIn</h4>
-                <p>
-                  <a
-                    href="https://www.linkedin.com/in/asadbek-mirmahmudov-744b94282/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >asadbek-mirmahmudov</a
-                  >
-                </p>
-              </div>
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.github">GitHub</h4>
-                <p>
-                  <a
-                    href="https://github.com/Mirmahmudov"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >github.com/Mirmahmudov</a
-                  >
-                </p>
-              </div>
-              <div class="contact-info-item padd-15">
-                <div class="icon">
-                  <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
-                </div>
-                <h4 data-i18n="contact.location">Location</h4>
-                <p data-i18n="contact.locationValue"></p>
-              </div>
-            </div>
+          <div class="section-shell">
+            <header class="section-head">
+              <h2 data-i18n="contact.title">Contact Me</h2>
+            </header>
 
-            <h3 class="contact-title padd-15" data-i18n="contact.q2"></h3>
-            <h4 class="contact-sub-title padd-15" data-i18n="contact.sub2"></h4>
-            <p class="contact-via padd-15">
-              <i class="fa-brands fa-telegram" aria-hidden="true"></i>
-              <span data-i18n="contact.viaTelegram"
-                >Messages are delivered to my Telegram bot</span
-              >
+            <p class="contact-intro" data-i18n="contact.intro">
+              Loyihangiz haqida gaplashishga tayyorman. Quyidagi forma orqali
+              menga murojaat qiling yoki to'g'ridan-to'g'ri bog'laning. Har bir
+              loyihaga individual yondashuv va professional yechimlar taklif
+              etaman.
             </p>
-            <div class="row">
-              <form class="contact-form padd-15" id="contact-form" novalidate>
-                <!-- Honeypot — odamlar ko'rmaydi, botlar to'ldiradi -->
-                <input
-                  type="text"
-                  name="website"
-                  class="hp-field"
-                  tabindex="-1"
-                  autocomplete="off"
-                  aria-hidden="true"
-                />
 
-                <div class="row">
-                  <div class="form-item col-6 padd-15">
-                    <div class="form-group">
-                      <label
-                        class="sr-only"
-                        for="name"
-                        data-i18n="contact.labelName"
-                        >Your name</label
-                      >
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        class="form-control"
-                        data-i18n-placeholder="contact.name"
-                        placeholder="Name"
-                        autocomplete="name"
-                        required
-                        maxlength="80"
-                      />
+            <div class="contact-layout">
+              <!-- Chap: to'g'ridan-to'g'ri aloqa -->
+              <div class="contact-aside">
+                <h3 class="contact-block-title" data-i18n="contact.directTitle">
+                  To'g'ridan-to'g'ri bog'lanish
+                </h3>
+                <ul class="contact-list">
+                  <li>
+                    <a class="contact-card" href="tel:+998913444468">
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa fa-phone"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span class="contact-card-label" data-i18n="contact.callMe"
+                          >Phone</span
+                        >
+                        <span class="contact-card-value">+998 91 344 44 68</span>
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="contact-card"
+                      href="mailto:asadbekmirmahmudov3@gmail.com"
+                    >
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa fa-envelope"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span class="contact-card-label" data-i18n="contact.email"
+                          >Email</span
+                        >
+                        <span class="contact-card-value"
+                          >asadbekmirmahmudov3@gmail.com</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="contact-card"
+                      href="https://t.me/MirmahmudovAsadbek"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa-brands fa-telegram"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span
+                          class="contact-card-label"
+                          data-i18n="contact.telegram"
+                          >Telegram</span
+                        >
+                        <span class="contact-card-value"
+                          >@MirmahmudovAsadbek</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="contact-card"
+                      href="https://www.linkedin.com/in/asadbek-mirmahmudov-744b94282/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa-brands fa-linkedin"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span
+                          class="contact-card-label"
+                          data-i18n="contact.linkedin"
+                          >LinkedIn</span
+                        >
+                        <span class="contact-card-value"
+                          >asadbek-mirmahmudov</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="contact-card"
+                      href="https://github.com/Mirmahmudov"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa-brands fa-github"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span
+                          class="contact-card-label"
+                          data-i18n="contact.github"
+                          >GitHub</span
+                        >
+                        <span class="contact-card-value"
+                          >github.com/Mirmahmudov</span
+                        >
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="contact-card contact-card--static">
+                      <span class="contact-card-icon" aria-hidden="true">
+                        <i class="fa fa-map-marker-alt"></i>
+                      </span>
+                      <span class="contact-card-body">
+                        <span
+                          class="contact-card-label"
+                          data-i18n="contact.location"
+                          >Location</span
+                        >
+                        <span
+                          class="contact-card-value"
+                          data-i18n="contact.locationValue"
+                          >Chust, Namangan, Uzbekistan</span
+                        >
+                      </span>
                     </div>
-                  </div>
-                  <div class="form-item col-6 padd-15">
-                    <div class="form-group">
-                      <label
-                        class="sr-only"
-                        for="email"
-                        data-i18n="contact.labelEmail"
-                        >Your email</label
-                      >
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        class="form-control"
-                        data-i18n-placeholder="contact.emailPh"
-                        placeholder="Email"
-                        autocomplete="email"
-                        required
-                        maxlength="120"
-                      />
+                  </li>
+                </ul>
+              </div>
+
+              <!-- O'ng: forma -->
+              <div class="contact-main">
+                <div class="contact-form-panel">
+                  <h3 class="contact-block-title" data-i18n="contact.formTitle">
+                    Xabar yuborish
+                  </h3>
+                  <p class="contact-form-note" data-i18n="contact.viaTelegram">
+                    Xabar Telegram orqali yetib boradi
+                  </p>
+
+                  <form class="contact-form" id="contact-form" novalidate>
+                    <input
+                      type="text"
+                      name="website"
+                      class="hp-field"
+                      tabindex="-1"
+                      autocomplete="off"
+                      aria-hidden="true"
+                    />
+
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="name" data-i18n="contact.labelName"
+                          >Ismingiz</label
+                        >
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          class="form-control"
+                          data-i18n-placeholder="contact.name"
+                          placeholder="Name"
+                          autocomplete="name"
+                          required
+                          maxlength="80"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email" data-i18n="contact.labelEmail"
+                          >Emailingiz</label
+                        >
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          class="form-control"
+                          data-i18n-placeholder="contact.emailPh"
+                          placeholder="Email"
+                          autocomplete="email"
+                          required
+                          maxlength="120"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-item col-12 padd-15">
+
                     <div class="form-group">
-                      <label
-                        class="sr-only"
-                        for="subject"
-                        data-i18n="contact.labelSubject"
-                        >Subject</label
+                      <label for="subject" data-i18n="contact.labelSubject"
+                        >Mavzu</label
                       >
                       <input
                         type="text"
@@ -1254,14 +1371,10 @@
                         maxlength="120"
                       />
                     </div>
-                  </div>
-                  <div class="form-item col-12 padd-15">
+
                     <div class="form-group">
-                      <label
-                        class="sr-only"
-                        for="message"
-                        data-i18n="contact.labelMessage"
-                        >Message</label
+                      <label for="message" data-i18n="contact.labelMessage"
+                        >Xabar</label
                       >
                       <textarea
                         id="message"
@@ -1271,14 +1384,14 @@
                         placeholder="Message"
                         required
                         maxlength="2000"
+                        rows="5"
                       ></textarea>
                     </div>
-                  </div>
-                  <div class="form-item col-12 padd-15">
-                    <div class="form-group form-actions">
+
+                    <div class="form-actions">
                       <button type="submit" class="btn btn-telegram">
                         <i class="fa-brands fa-telegram" aria-hidden="true"></i>
-                        <span data-i18n="contact.send">Send Message</span>
+                        <span data-i18n="contact.send">Telegramga yuborish</span>
                       </button>
                       <p
                         class="form-status"
@@ -1286,9 +1399,9 @@
                         aria-live="polite"
                       ></p>
                     </div>
-                  </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </section>
@@ -1296,12 +1409,7 @@
     </div>
 
     <footer class="site-footer" aria-label="Footer">
-      <p>
-        © <span class="js-year">2026</span> Asadbek Mirmahmudov ·
-        <a href="https://t.me/asadbek_dev_bot" target="_blank" rel="noopener"
-          >@asadbek_dev_bot</a
-        >
-      </p>
+      <p>© <span class="js-year">2026</span> Asadbek Mirmahmudov</p>
     </footer>
 
     <!-- Style Switcher -->
@@ -1379,6 +1487,7 @@
       Qolgan skriptlar deferred: ular i18n'dan keyin ishga tushadi.
     -->
     <script src="./js/i18n.js"></script>
+    <script src="./js/cms-core.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
       integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
@@ -1389,5 +1498,6 @@
     <script src="./js/motion.js" defer></script>
     <script src="./js/main.js" defer></script>
     <script src="./js/style-switcher.js" defer></script>
+    <script src="./js/content-loader.js" defer></script>
   </body>
 </html>
